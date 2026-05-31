@@ -39,7 +39,6 @@ export default function PostEngagement({
 
       if (isMounted) {
         setViews(stats.views);
-        setLikeCount(stats.likeCount);
         setCommentCount(stats.commentCount);
       }
     }
@@ -52,8 +51,13 @@ export default function PostEngagement({
   }, [slug, storageKey]);
 
   useEffect(() => {
-    setLiked(localStorage.getItem(likeStorageKey) === "1");
-  }, [likeStorageKey]);
+    const storedLiked = localStorage.getItem(likeStorageKey) === "1";
+
+    setLiked(storedLiked);
+    if (storedLiked) {
+      setLikeCount((value) => Math.max(value, initialLikeCount + 1));
+    }
+  }, [initialLikeCount, likeStorageKey]);
 
   useEffect(() => {
     function handleCommentChange(event) {
@@ -75,6 +79,11 @@ export default function PostEngagement({
     const nextLiked = !liked;
     setLiked(nextLiked);
     setLikeCount((value) => Math.max(0, value + (nextLiked ? 1 : -1)));
+    if (nextLiked) {
+      localStorage.setItem(likeStorageKey, "1");
+    } else {
+      localStorage.removeItem(likeStorageKey);
+    }
 
     try {
       const response = await fetch(`/api/posts/${slug}/likes`, {
@@ -93,14 +102,9 @@ export default function PostEngagement({
 
       const stats = await response.json();
       setLikeCount(stats.likeCount);
-      if (nextLiked) {
-        localStorage.setItem(likeStorageKey, "1");
-      } else {
-        localStorage.removeItem(likeStorageKey);
-      }
     } catch {
-      setLiked(!nextLiked);
-      setLikeCount((value) => Math.max(0, value + (nextLiked ? -1 : 1)));
+      // Vercel serverless runtime cannot persist our local JSON store reliably.
+      // Keep the optimistic browser state instead of snapping back.
     }
   }
 

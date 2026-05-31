@@ -21,6 +21,12 @@ Official references:
 5. Set `NEXT_PUBLIC_SITE_URL` to your real domain in Vercel environment variables.
 6. Accept the detected Next.js settings and deploy.
 7. Add your custom domain in Vercel after the first deploy succeeds.
+8. Connect a Postgres database in Vercel Storage so likes, comments, and view counts are shared across all users.
+9. Confirm the project has one of these environment variables after the database is connected:
+   - `DATABASE_URL`
+   - `POSTGRES_URL`
+   - `POSTGRES_PRISMA_URL`
+10. Redeploy once after the database is attached.
 
 Vercel documents Next.js deployment as zero-configuration when importing a Next.js project.
 

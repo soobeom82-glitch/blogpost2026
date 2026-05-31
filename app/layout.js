@@ -1,8 +1,22 @@
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://127.0.0.1:3000";
+
 export const metadata = {
   title: "Operator's Log",
-  description: "실전 사업 운영 아카이브"
+  description: "실전 사업 운영 아카이브",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "Operator's Log",
+    description: "실전 사업 운영 아카이브",
+    images: ["/images/site-representative.jpg"]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Operator's Log",
+    description: "실전 사업 운영 아카이브",
+    images: ["/images/site-representative.jpg"]
+  }
 };
 
 const categories = ["무인주차장", "무인카페", "채굴", "세무/사업"];

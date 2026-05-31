@@ -143,6 +143,13 @@ a {
 .post-visual {
   position: relative;
   background:
+    linear-gradient(135deg, rgba(17, 17, 17, 0.24), rgba(17, 17, 17, 0.18)),
+    url("/images/site-representative.jpg") center/cover no-repeat,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent);
+}
+
+.post-visual {
+  background:
     linear-gradient(135deg, rgba(229, 28, 35, 0.94), rgba(17, 17, 17, 0.92)),
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent);
 }

@@ -115,8 +115,8 @@ export default function PostEngagement({
           aria-pressed={liked}
           title="좋아요"
         >
-          <span className="thumb-icon" aria-hidden="true">
-            👍
+          <span className="heart-icon" aria-hidden="true">
+            {liked ? "♥" : "♡"}
           </span>
           <span>좋아요 {likeCount}</span>
         </button>

@@ -27,7 +27,7 @@ export default function PostCard({ post }) {
       <div className="post-card-footer">
         <div className="metric-row">
           <span>조회 {post.views}</span>
-          <span>좋아요 {post.likeCount}</span>
+          <span>하트 {post.likeCount}</span>
           <span>댓글 {post.commentCount}</span>
         </div>
       </div>

@@ -69,10 +69,11 @@ export default function PostEngagement({
         <span>댓글 {commentCount}</span>
       </div>
       <ShareButton
-        className="solid-button"
+        className="icon-button"
         title={title}
         path={`/blog/${slug}`}
-        label="공유하기"
+        label="공유"
+        iconOnly
       />
     </div>
   );

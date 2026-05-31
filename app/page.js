@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PostCard from "../components/post-card";
 import { getAllPosts } from "../lib/posts";
 
@@ -9,16 +10,22 @@ export default async function HomePage() {
   return (
     <div className="home-grid">
       <section className="lead-grid">
-        <article className="lead-card">
+        <Link
+          href={`/blog/${featuredPost.slug}`}
+          className="lead-card lead-card-link"
+        >
           <div className="lead-visual">
+            <img
+              className="lead-visual-image"
+              src={featuredPost.image || "/images/site-representative.jpg"}
+              alt={featuredPost.imageAlt || featuredPost.title}
+            />
             <span className="lead-badge">{featuredPost.category}</span>
           </div>
 
           <div className="lead-content">
             <p className="eyebrow">대표 연재</p>
-            <h2>
-              <a href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</a>
-            </h2>
+            <h2>{featuredPost.title}</h2>
             <p className="lead-summary">{featuredPost.summary}</p>
 
             <div className="lead-footer">
@@ -27,12 +34,9 @@ export default async function HomePage() {
                 <span>조회 {featuredPost.views}</span>
                 <span>댓글 {featuredPost.commentCount}</span>
               </div>
-              <a className="solid-link" href={`/blog/${featuredPost.slug}`}>
-                본문 보기
-              </a>
             </div>
           </div>
-        </article>
+        </Link>
 
         <aside className="latest-panel">
           <div className="section-head">
@@ -60,7 +64,6 @@ export default async function HomePage() {
       <section className="post-section">
         <div className="section-head">
           <h2>최신 스토리</h2>
-          <p>운영 중 실제로 겪은 장면을 카드형으로 정리했습니다</p>
         </div>
 
         <div className="post-list">

@@ -49,16 +49,25 @@ export default async function BlogPostPage({ params }) {
         <p className="post-summary">{post.summary}</p>
       </header>
 
+      {post.image ? (
+        <figure className="post-hero">
+          <img src={post.image} alt={post.imageAlt || post.title} />
+          {post.imageCaption ? (
+            <figcaption>{post.imageCaption}</figcaption>
+          ) : null}
+        </figure>
+      ) : null}
+
+      <div className="post-body">
+        <Content />
+      </div>
+
       <PostEngagement
         slug={slug}
         title={post.title}
         initialViews={post.views}
         initialCommentCount={post.commentCount}
       />
-
-      <div className="post-body">
-        <Content />
-      </div>
 
       <CommentsSection
         slug={slug}

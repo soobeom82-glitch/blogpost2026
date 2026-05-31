@@ -1,34 +1,26 @@
 import Link from "next/link";
-import ShareButton from "./share-button";
 
 export default function PostCard({ post }) {
   return (
-    <article className="post-card">
-      <Link
-        href={`/blog/${post.slug}`}
-        className="post-visual"
-        aria-label={post.title}
-      >
+    <Link href={`/blog/${post.slug}`} className="post-card" aria-label={post.title}>
+      <div className="post-visual">
+        <img
+          className="post-visual-image"
+          src={post.image || "/images/site-representative.jpg"}
+          alt={post.imageAlt || post.title}
+        />
         <span className="post-visual-kicker">{post.category}</span>
-      </Link>
+      </div>
 
       <div className="post-card-top">
         <p className="post-meta">
           <span>{post.category}</span>
           <span>{post.publishedAt}</span>
         </p>
-        <ShareButton
-          className="ghost-button"
-          title={post.title}
-          path={`/blog/${post.slug}`}
-          label="공유"
-        />
       </div>
 
       <div className="post-card-body">
-        <h3>
-          <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-        </h3>
+        <h3>{post.title}</h3>
         <p>{post.summary}</p>
       </div>
 
@@ -37,10 +29,7 @@ export default function PostCard({ post }) {
           <span>조회 {post.views}</span>
           <span>댓글 {post.commentCount}</span>
         </div>
-        <Link className="solid-link" href={`/blog/${post.slug}`}>
-          읽기
-        </Link>
       </div>
-    </article>
+    </Link>
   );
 }

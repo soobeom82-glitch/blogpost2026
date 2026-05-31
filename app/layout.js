@@ -19,7 +19,7 @@ export const metadata = {
   }
 };
 
-const categories = ["무인주차장", "무인카페", "채굴", "세무/사업"];
+const categories = ["주차장", "무인카페"];
 
 export default function RootLayout({ children }) {
   return (
@@ -45,9 +45,7 @@ export default function RootLayout({ children }) {
           <header className="site-header newsroom-header">
             <div>
               <p className="eyebrow">Interview-based operating archive</p>
-              <h1 className="site-title">
-                실전 사업 운영에서 나온 기록만 남깁니다.
-              </h1>
+              <h1 className="site-title">사업 운영의 현실을 인터뷰로 남깁니다.</h1>
             </div>
 
             <p className="site-intro">

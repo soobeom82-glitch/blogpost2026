@@ -4,6 +4,14 @@ import ShareButton from "./share-button";
 export default function PostCard({ post }) {
   return (
     <article className="post-card">
+      <Link
+        href={`/blog/${post.slug}`}
+        className="post-visual"
+        aria-label={post.title}
+      >
+        <span className="post-visual-kicker">{post.category}</span>
+      </Link>
+
       <div className="post-card-top">
         <p className="post-meta">
           <span>{post.category}</span>

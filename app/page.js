@@ -3,26 +3,68 @@ import { getAllPosts } from "../lib/posts";
 
 export default async function HomePage() {
   const posts = await getAllPosts();
+  const [featuredPost, ...otherPosts] = posts;
+  const latestPosts = otherPosts.slice(0, 4);
 
   return (
     <div className="home-grid">
-      <section className="hero-card">
-        <p className="eyebrow">Interview-based business archive</p>
-        <h1>직접 운영한 일만 남깁니다.</h1>
-        <p className="hero-copy">
-          무인주차장, 무인카페, 채굴, 세무. 잘 포장한 성공담보다 실제
-          운영에서 겪은 시행착오와 판단 과정을 남기는 블로그입니다.
-        </p>
+      <section className="lead-grid">
+        <article className="lead-card">
+          <div className="lead-visual">
+            <span className="lead-badge">{featuredPost.category}</span>
+          </div>
+
+          <div className="lead-content">
+            <p className="eyebrow">대표 연재</p>
+            <h2>
+              <a href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</a>
+            </h2>
+            <p className="lead-summary">{featuredPost.summary}</p>
+
+            <div className="lead-footer">
+              <div className="metric-row">
+                <span>{featuredPost.publishedAt}</span>
+                <span>조회 {featuredPost.views}</span>
+                <span>댓글 {featuredPost.commentCount}</span>
+              </div>
+              <a className="solid-link" href={`/blog/${featuredPost.slug}`}>
+                본문 보기
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <aside className="latest-panel">
+          <div className="section-head">
+            <h2>최신 기사</h2>
+            <p>최근 공개된 연재</p>
+          </div>
+
+          <ul className="latest-list">
+            {posts.map((post) => (
+              <li key={post.slug} className="latest-item">
+                <a href={`/blog/${post.slug}`}>
+                  <span className="latest-category">{post.category}</span>
+                  <strong>{post.title}</strong>
+                  <span className="latest-meta">
+                    {post.publishedAt} · 조회 {post.views} · 댓글{" "}
+                    {post.commentCount}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </section>
 
       <section className="post-section">
         <div className="section-head">
-          <h2>연재 글</h2>
-          <p>인터뷰를 바탕으로 한 운영 기록</p>
+          <h2>최신 스토리</h2>
+          <p>운영 중 실제로 겪은 장면을 카드형으로 정리했습니다</p>
         </div>
 
         <div className="post-list">
-          {posts.map((post) => (
+          {latestPosts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}
         </div>

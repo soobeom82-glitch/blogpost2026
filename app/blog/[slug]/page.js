@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { getPostComments } from "../../../lib/blog-store";
 import { getAdjacentPosts, getAllPosts, getPostBySlug } from "../../../lib/posts";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));

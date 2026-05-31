@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const commentDateFormatter = new Intl.DateTimeFormat("ko-KR", {
   year: "numeric",
@@ -374,6 +374,39 @@ export default function CommentsSection({
 }) {
   const [comments, setComments] = useState(initialComments);
   const [commentCount, setCommentCount] = useState(initialCommentCount);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function syncComments() {
+      try {
+        const response = await fetch(`/api/posts/${slug}/comments`, {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          return;
+        }
+
+        const payload = await response.json();
+
+        if (!isMounted) {
+          return;
+        }
+
+        setComments(payload.comments);
+        setCommentCount(payload.stats.commentCount);
+      } catch {
+        // Keep the server-rendered state if live sync fails.
+      }
+    }
+
+    syncComments();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
 
   function handleSubmitted(payload) {
     applyPayload(slug, payload, setComments, setCommentCount);

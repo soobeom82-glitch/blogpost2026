@@ -2,6 +2,8 @@ import Link from "next/link";
 import PostCard from "../components/post-card";
 import { getAllPosts } from "../lib/posts";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const posts = await getAllPosts();
   const [featuredPost, ...otherPosts] = posts;

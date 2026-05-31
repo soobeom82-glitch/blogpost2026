@@ -1,0 +1,7 @@
+interface:
+  display_name: "Operator Episode Writing"
+  short_description: "Operator Log 인터뷰형 에피소드 작성 스킬"
+  default_prompt: "Use $operators-log-episode-writing to create or revise an interview-based Operator Log episode in this project."
+
+policy:
+  allow_implicit_invocation: true

@@ -2,6 +2,17 @@
 
 import { useState } from "react";
 
+const commentDateFormatter = new Intl.DateTimeFormat("ko-KR", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false,
+  timeZone: "Asia/Seoul"
+});
+
 function applyPayload(slug, payload, setComments, setCommentCount) {
   setComments(payload.comments);
   setCommentCount(payload.stats.commentCount);
@@ -13,6 +24,19 @@ function applyPayload(slug, payload, setComments, setCommentCount) {
       }
     })
   );
+}
+
+async function readErrorMessage(response, fallbackMessage) {
+  try {
+    const payload = await response.json();
+    return payload.message || fallbackMessage;
+  } catch {
+    return fallbackMessage;
+  }
+}
+
+function formatCommentDate(value) {
+  return commentDateFormatter.format(new Date(value));
 }
 
 function CommentForm({
@@ -39,32 +63,36 @@ function CommentForm({
 
     setSubmitting(true);
 
-    const response = await fetch(`/api/posts/${slug}/comments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nickname: nickname.trim(),
-        password: password.trim(),
-        content: content.trim(),
-        parentId
-      })
-    });
+    try {
+      const response = await fetch(`/api/posts/${slug}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nickname: nickname.trim(),
+          password: password.trim(),
+          content: content.trim(),
+          parentId
+        })
+      });
 
-    setSubmitting(false);
+      if (!response.ok) {
+        setError(await readErrorMessage(response, "댓글 저장에 실패했습니다."));
+        return;
+      }
 
-    if (!response.ok) {
+      const payload = await response.json();
+
+      setNickname("");
+      setPassword("");
+      setContent("");
+      onSubmitted(payload);
+    } catch {
       setError("댓글 저장에 실패했습니다.");
-      return;
+    } finally {
+      setSubmitting(false);
     }
-
-    const payload = await response.json();
-
-    setNickname("");
-    setPassword("");
-    setContent("");
-    onSubmitted(payload);
   }
 
   return (
@@ -182,56 +210,64 @@ function CommentItem({ slug, comment, onSubmitted }) {
   const [deleting, setDeleting] = useState(false);
 
   async function handleEdit({ password, content }) {
-    const response = await fetch(`/api/posts/${slug}/comments`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        commentId: comment.id,
-        password,
-        content
-      })
-    });
+    try {
+      const response = await fetch(`/api/posts/${slug}/comments`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          commentId: comment.id,
+          password,
+          content
+        })
+      });
 
-    if (response.status === 403) {
-      return "비밀번호가 맞지 않습니다.";
-    }
+      if (response.status === 403) {
+        return "비밀번호가 맞지 않습니다.";
+      }
 
-    if (!response.ok) {
+      if (!response.ok) {
+        return await readErrorMessage(response, "댓글 수정에 실패했습니다.");
+      }
+
+      const payload = await response.json();
+      setEditing(false);
+      onSubmitted(payload);
+      return null;
+    } catch {
       return "댓글 수정에 실패했습니다.";
     }
-
-    const payload = await response.json();
-    setEditing(false);
-    onSubmitted(payload);
-    return null;
   }
 
   async function handleDelete({ password }) {
-    const response = await fetch(`/api/posts/${slug}/comments`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        commentId: comment.id,
-        password
-      })
-    });
+    try {
+      const response = await fetch(`/api/posts/${slug}/comments`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          commentId: comment.id,
+          password
+        })
+      });
 
-    if (response.status === 403) {
-      return "비밀번호가 맞지 않습니다.";
-    }
+      if (response.status === 403) {
+        return "비밀번호가 맞지 않습니다.";
+      }
 
-    if (!response.ok) {
+      if (!response.ok) {
+        return await readErrorMessage(response, "댓글 삭제에 실패했습니다.");
+      }
+
+      const payload = await response.json();
+      setDeleting(false);
+      onSubmitted(payload);
+      return null;
+    } catch {
       return "댓글 삭제에 실패했습니다.";
     }
-
-    const payload = await response.json();
-    setDeleting(false);
-    onSubmitted(payload);
-    return null;
   }
 
   return (
@@ -239,7 +275,7 @@ function CommentItem({ slug, comment, onSubmitted }) {
       <article className="comment-bubble">
         <div className="comment-head">
           <strong>{comment.nickname}</strong>
-          <span>{new Date(comment.createdAt).toLocaleString("ko-KR")}</span>
+          <span suppressHydrationWarning>{formatCommentDate(comment.createdAt)}</span>
         </div>
         <p>{comment.content}</p>
         <div className="comment-actions">

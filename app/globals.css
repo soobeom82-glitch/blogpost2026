@@ -550,6 +550,17 @@ a {
   margin-bottom: 14px;
 }
 
+.post-bottom-actions {
+  max-width: 42rem;
+  margin: 26px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.back-link-bottom {
+  margin-bottom: 0;
+}
+
 .post-pagination {
   max-width: 42rem;
   margin: 24px auto 0;
@@ -739,7 +750,8 @@ a {
   }
 
   .post-body,
-  .comments-section {
+  .comments-section,
+  .post-bottom-actions {
     max-width: none;
   }
 

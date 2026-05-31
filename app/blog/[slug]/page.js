@@ -98,6 +98,12 @@ export default async function BlogPostPage({ params }) {
         initialComments={comments}
         initialCommentCount={post.commentCount}
       />
+
+      <div className="post-bottom-actions">
+        <a className="back-link back-link-bottom" href="/">
+          ← 목록으로
+        </a>
+      </div>
     </article>
   );
 }

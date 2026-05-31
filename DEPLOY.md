@@ -1,0 +1,48 @@
+# Vercel Deploy
+
+## Why this stack
+
+- Write posts as `.mdx`
+- Commit them to Git
+- Let Vercel build and publish automatically
+- Keep the workflow simple enough to keep posting
+
+Official references:
+
+- Next.js MDX guide: https://nextjs.org/docs/app/guides/mdx
+- Next.js on Vercel: https://vercel.com/docs/concepts/next.js/overview
+
+## Deploy steps
+
+1. Use Node `20+`.
+2. Create a GitHub repository from this project.
+3. Push the code.
+4. Go to Vercel and import the repository as a new project.
+5. Set `NEXT_PUBLIC_SITE_URL` to your real domain in Vercel environment variables.
+6. Accept the detected Next.js settings and deploy.
+7. Add your custom domain in Vercel after the first deploy succeeds.
+
+Vercel documents Next.js deployment as zero-configuration when importing a Next.js project.
+
+## Posting workflow
+
+1. Add a new file under `content/posts/`.
+2. Start each file with:
+
+```mdx
+export const metadata = {
+  title: "글 제목",
+  publishedAt: "2026-05-31",
+  category: "무인주차장",
+  summary: "한 줄 요약"
+};
+```
+
+3. Write the body in Markdown/MDX.
+4. Commit and push.
+5. Vercel rebuilds and publishes the post.
+
+Current posts already wired in:
+
+- `content/posts/parking-auction-origin-part-1.mdx`
+- `content/posts/parking-auction-reality-part-2.mdx`

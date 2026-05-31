@@ -424,6 +424,10 @@ a {
   padding: 0;
 }
 
+.text-button-danger {
+  color: #c93333;
+}
+
 .solid-button:hover,
 .ghost-button:hover,
 .solid-link:hover,
@@ -644,6 +648,32 @@ a {
 .comment-bubble p {
   margin: 0 0 10px;
   white-space: pre-wrap;
+}
+
+.comment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.comment-manage-form {
+  display: grid;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fafafa;
+}
+
+.comment-manage-form input,
+.comment-manage-form textarea {
+  width: 100%;
+  border: 1px solid rgba(17, 17, 17, 0.15);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: white;
+  font: inherit;
+  color: var(--text);
 }
 
 .reply-list {

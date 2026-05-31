@@ -254,6 +254,31 @@ a {
   font-size: 0.92rem;
 }
 
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  color: var(--text);
+}
+
+.like-button.is-liked {
+  color: var(--accent);
+}
+
+.thumb-icon {
+  display: inline-flex;
+  line-height: 1;
+}
+
 .latest-panel {
   padding: 20px 22px;
 }

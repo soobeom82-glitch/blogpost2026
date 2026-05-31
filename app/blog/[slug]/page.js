@@ -68,6 +68,7 @@ export default async function BlogPostPage({ params }) {
         slug={slug}
         title={post.title}
         initialViews={post.views}
+        initialLikeCount={post.likeCount}
         initialCommentCount={post.commentCount}
       />
 

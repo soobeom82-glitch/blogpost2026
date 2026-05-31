@@ -7,11 +7,15 @@ export default function PostEngagement({
   slug,
   title,
   initialViews,
+  initialLikeCount,
   initialCommentCount
 }) {
   const [views, setViews] = useState(initialViews);
+  const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [commentCount, setCommentCount] = useState(initialCommentCount);
   const storageKey = useMemo(() => `viewed:${slug}`, [slug]);
+  const likeStorageKey = useMemo(() => `liked:${slug}`, [slug]);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -35,6 +39,7 @@ export default function PostEngagement({
 
       if (isMounted) {
         setViews(stats.views);
+        setLikeCount(stats.likeCount);
         setCommentCount(stats.commentCount);
       }
     }
@@ -45,6 +50,10 @@ export default function PostEngagement({
       isMounted = false;
     };
   }, [slug, storageKey]);
+
+  useEffect(() => {
+    setLiked(localStorage.getItem(likeStorageKey) === "1");
+  }, [likeStorageKey]);
 
   useEffect(() => {
     function handleCommentChange(event) {
@@ -62,10 +71,55 @@ export default function PostEngagement({
     };
   }, [slug]);
 
+  async function handleLike() {
+    const nextLiked = !liked;
+    setLiked(nextLiked);
+    setLikeCount((value) => Math.max(0, value + (nextLiked ? 1 : -1)));
+
+    try {
+      const response = await fetch(`/api/posts/${slug}/likes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          liked: nextLiked
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("like request failed");
+      }
+
+      const stats = await response.json();
+      setLikeCount(stats.likeCount);
+      if (nextLiked) {
+        localStorage.setItem(likeStorageKey, "1");
+      } else {
+        localStorage.removeItem(likeStorageKey);
+      }
+    } catch {
+      setLiked(!nextLiked);
+      setLikeCount((value) => Math.max(0, value + (nextLiked ? -1 : 1)));
+    }
+  }
+
   return (
     <div className="engagement-bar">
       <div className="metric-row">
         <span>조회 {views}</span>
+        <button
+          className={`like-button ${liked ? "is-liked" : ""}`}
+          type="button"
+          onClick={handleLike}
+          aria-pressed={liked}
+          title="좋아요"
+        >
+          <span className="thumb-icon" aria-hidden="true">
+            👍
+          </span>
+          <span>좋아요 {likeCount}</span>
+        </button>
         <span>댓글 {commentCount}</span>
       </div>
       <ShareButton

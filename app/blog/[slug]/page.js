@@ -93,17 +93,17 @@ export default async function BlogPostPage({ params }) {
         </nav>
       ) : null}
 
-      <CommentsSection
-        slug={slug}
-        initialComments={comments}
-        initialCommentCount={post.commentCount}
-      />
-
       <div className="post-bottom-actions">
         <a className="back-link back-link-bottom" href="/">
           ← 목록으로
         </a>
       </div>
+
+      <CommentsSection
+        slug={slug}
+        initialComments={comments}
+        initialCommentCount={post.commentCount}
+      />
     </article>
   );
 }

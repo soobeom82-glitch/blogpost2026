@@ -1,6 +1,10 @@
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://127.0.0.1:3000";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://blogpost2026.vercel.app");
 
 export const metadata = {
   title: "Operator's Log",
@@ -9,6 +13,8 @@ export const metadata = {
   openGraph: {
     title: "Operator's Log",
     description: "실전 사업 운영 아카이브",
+    url: siteUrl,
+    siteName: "Operator's Log",
     images: ["/images/site-representative.jpg"]
   },
   twitter: {

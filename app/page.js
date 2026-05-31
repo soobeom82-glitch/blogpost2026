@@ -32,7 +32,7 @@ export default async function HomePage() {
               <div className="metric-row">
                 <span>{featuredPost.publishedAt}</span>
                 <span>조회 {featuredPost.views}</span>
-                <span>하트 {featuredPost.likeCount}</span>
+                <span>좋아요 {featuredPost.likeCount}</span>
                 <span>댓글 {featuredPost.commentCount}</span>
               </div>
             </div>
@@ -52,7 +52,7 @@ export default async function HomePage() {
                   <span className="latest-category">{post.category}</span>
                   <strong>{post.title}</strong>
                   <span className="latest-meta">
-                    {post.publishedAt} · 조회 {post.views} · 하트{" "}
+                    {post.publishedAt} · 조회 {post.views} · 좋아요{" "}
                     {post.likeCount} · 댓글{" "}
                     {post.commentCount}
                   </span>

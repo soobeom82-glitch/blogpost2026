@@ -1,3 +1,4 @@
+import PostCard from "../components/post-card";
 import { getAllPosts } from "../lib/posts";
 
 export default async function HomePage() {
@@ -22,16 +23,7 @@ export default async function HomePage() {
 
         <div className="post-list">
           {posts.map((post) => (
-            <article key={post.slug} className="post-card">
-              <p className="post-meta">
-                <span>{post.category}</span>
-                <span>{post.publishedAt}</span>
-              </p>
-              <h3>
-                <a href={`/blog/${post.slug}`}>{post.title}</a>
-              </h3>
-              <p>{post.summary}</p>
-            </article>
+            <PostCard key={post.slug} post={post} />
           ))}
         </div>
       </section>

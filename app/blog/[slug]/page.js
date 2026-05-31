@@ -1,4 +1,7 @@
+import CommentsSection from "../../../components/comments-section";
+import PostEngagement from "../../../components/post-engagement";
 import { notFound } from "next/navigation";
+import { getPostComments } from "../../../lib/blog-store";
 import { getAllPosts, getPostBySlug } from "../../../lib/posts";
 
 export async function generateStaticParams() {
@@ -7,7 +10,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {};
@@ -20,13 +24,15 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
   const Content = post.Content;
+  const comments = await getPostComments(slug);
 
   return (
     <article className="post-page">
@@ -43,9 +49,22 @@ export default async function BlogPostPage({ params }) {
         <p className="post-summary">{post.summary}</p>
       </header>
 
+      <PostEngagement
+        slug={slug}
+        title={post.title}
+        initialViews={post.views}
+        initialCommentCount={post.commentCount}
+      />
+
       <div className="post-body">
         <Content />
       </div>
+
+      <CommentsSection
+        slug={slug}
+        initialComments={comments}
+        initialCommentCount={post.commentCount}
+      />
     </article>
   );
 }

@@ -8,11 +8,11 @@ const siteUrl =
 
 export const metadata = {
   title: "Operator's Log",
-  description: "실전 사업 운영 아카이브",
+  description: "실전 사업 운영 인터뷰 모음",
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Operator's Log",
-    description: "실전 사업 운영 아카이브",
+    description: "실전 사업 운영 인터뷰 모음",
     url: siteUrl,
     siteName: "Operator's Log",
     images: ["/images/site-representative.jpg"]
@@ -20,7 +20,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Operator's Log",
-    description: "실전 사업 운영 아카이브",
+    description: "실전 사업 운영 인터뷰 모음",
     images: ["/images/site-representative.jpg"]
   }
 };
@@ -51,7 +51,7 @@ export default function RootLayout({ children }) {
           <header className="site-header newsroom-header">
             <div>
               <p className="eyebrow">Interview-based operating archive</p>
-              <h1 className="site-title">사업 운영의 현실을 인터뷰로 남깁니다.</h1>
+              <h1 className="site-title">실전 사업 운영 인터뷰 모음</h1>
             </div>
 
             <p className="site-intro">

@@ -28,8 +28,7 @@ export default function RootLayout({ children }) {
         <div className="topbar">
           <div className="topbar-inner">
             <a className="brand brand-inverse" href="/">
-              <span className="brand-kicker">Operator's Log</span>
-              <strong>실전 사업 운영 아카이브</strong>
+              <strong>OPERATOR&apos;S LOG</strong>
             </a>
 
             <nav className="top-nav" aria-label="카테고리">

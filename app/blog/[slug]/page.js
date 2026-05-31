@@ -1,8 +1,9 @@
+import Link from "next/link";
 import CommentsSection from "../../../components/comments-section";
 import PostEngagement from "../../../components/post-engagement";
 import { notFound } from "next/navigation";
 import { getPostComments } from "../../../lib/blog-store";
-import { getAllPosts, getPostBySlug } from "../../../lib/posts";
+import { getAdjacentPosts, getAllPosts, getPostBySlug } from "../../../lib/posts";
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -33,6 +34,7 @@ export default async function BlogPostPage({ params }) {
 
   const Content = post.Content;
   const comments = await getPostComments(slug);
+  const { previousPost, nextPost } = await getAdjacentPosts(slug);
 
   return (
     <article className="post-page">
@@ -68,6 +70,28 @@ export default async function BlogPostPage({ params }) {
         initialViews={post.views}
         initialCommentCount={post.commentCount}
       />
+
+      {previousPost || nextPost ? (
+        <nav className="post-pagination" aria-label="연재 이동">
+          {previousPost ? (
+            <Link href={`/blog/${previousPost.slug}`} className="post-page-link">
+              <span className="post-page-label">이전글</span>
+              <strong>{previousPost.title}</strong>
+            </Link>
+          ) : (
+            <div className="post-page-link post-page-link-empty" aria-hidden="true" />
+          )}
+
+          {nextPost ? (
+            <Link href={`/blog/${nextPost.slug}`} className="post-page-link">
+              <span className="post-page-label">다음글</span>
+              <strong>{nextPost.title}</strong>
+            </Link>
+          ) : (
+            <div className="post-page-link post-page-link-empty" aria-hidden="true" />
+          )}
+        </nav>
+      ) : null}
 
       <CommentsSection
         slug={slug}

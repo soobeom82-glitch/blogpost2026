@@ -684,6 +684,9 @@ a {
 
 .post-inline-figure {
   margin: 1.8em 0;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .post-inline-figure img {
@@ -719,6 +722,14 @@ a {
 .post-body ul,
 .post-body ol {
   margin: 1em 0;
+}
+
+.post-body img {
+  display: block;
+  width: min(100%, 36rem);
+  margin: 1.8em auto;
+  border-radius: 22px;
+  border: 1px solid var(--line);
 }
 
 .post-body li,

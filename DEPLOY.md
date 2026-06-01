@@ -27,6 +27,14 @@ Official references:
    - `POSTGRES_URL`
    - `POSTGRES_PRISMA_URL`
 10. Redeploy once after the database is attached.
+11. Set these environment variables before requesting AdSense review:
+   - `NEXT_PUBLIC_SITE_URL`
+   - `NEXT_PUBLIC_CONTACT_EMAIL`
+   - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (optional, for Google site verification)
+   - `NEXT_PUBLIC_ADSENSE_CLIENT` (optional until AdSense is approved, format: `ca-pub-xxxxxxxxxxxxxxxx`)
+12. After `NEXT_PUBLIC_ADSENSE_CLIENT` is set, this project will automatically:
+   - inject the AdSense script
+   - expose `/ads.txt` using the same publisher id
 
 Vercel documents Next.js deployment as zero-configuration when importing a Next.js project.
 

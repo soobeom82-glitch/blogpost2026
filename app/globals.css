@@ -63,6 +63,36 @@ a {
   padding: 28px 0 80px;
 }
 
+.site-footer {
+  margin-top: 40px;
+  padding: 24px 0 8px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+}
+
+.footer-nav a,
+.inline-link {
+  color: var(--muted);
+}
+
+.footer-nav a:hover,
+.inline-link:hover {
+  color: var(--text);
+}
+
+.footer-copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
 .site-header {
   margin-bottom: 32px;
 }
@@ -424,6 +454,66 @@ a {
   max-width: 920px;
   margin: 0 auto;
   padding: 28px 24px 40px;
+}
+
+.info-page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 32px 28px 40px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  border-radius: 28px;
+}
+
+.info-page-head {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.info-page-head h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+}
+
+.info-page-summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.8;
+  max-width: 44rem;
+}
+
+.info-page-body {
+  display: grid;
+  gap: 26px;
+}
+
+.info-page-body section {
+  display: grid;
+  gap: 10px;
+}
+
+.info-page-body h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.info-page-body p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.85;
+}
+
+.info-list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  color: var(--text);
 }
 
 .solid-button,
@@ -831,13 +921,15 @@ a {
   .post-page,
   .lead-card,
   .latest-panel,
-  .not-found {
+  .not-found,
+  .info-page {
     border-radius: 20px;
   }
 
   .post-page,
   .latest-panel,
-  .not-found {
+  .not-found,
+  .info-page {
     padding: 22px;
   }
 

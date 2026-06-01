@@ -1,15 +1,21 @@
 import "./globals.css";
+import AdSenseScript from "../components/adsense-script";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "https://blogpost2026.vercel.app");
+const googleSiteVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined;
 
 export const metadata = {
   title: "Operator's Log",
   description: "실전 사업 운영 인터뷰 모음",
   metadataBase: new URL(siteUrl),
+  verification: {
+    google: googleSiteVerification
+  },
   openGraph: {
     title: "Operator's Log",
     description: "실전 사업 운영 인터뷰 모음",
@@ -31,6 +37,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
+        <AdSenseScript />
         <div className="topbar">
           <div className="topbar-inner">
             <a className="brand brand-inverse" href="/">
@@ -62,6 +69,19 @@ export default function RootLayout({ children }) {
           </header>
 
           <main>{children}</main>
+
+          <footer className="site-footer">
+            <nav className="footer-nav" aria-label="사이트 정보">
+              <a href="/about">소개</a>
+              <a href="/contact">문의</a>
+              <a href="/privacy">개인정보처리방침</a>
+            </nav>
+
+            <p className="footer-copy">
+              Operator&apos;s Log는 실제 사업 운영 경험을 인터뷰 기반으로
+              기록하는 아카이브입니다.
+            </p>
+          </footer>
         </div>
       </body>
     </html>

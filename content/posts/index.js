@@ -7,6 +7,9 @@ import ParkingAuctionRealityPart2, {
 import ParkingAuctionTurningPointPart3, {
   metadata as parkingAuctionTurningPointPart3Metadata
 } from "./parking-auction-turning-point-part-3.mdx";
+import ParkingAuctionTaxTurningPointPart4, {
+  metadata as parkingAuctionTaxTurningPointPart4Metadata
+} from "./parking-auction-tax-turning-point-part-4.mdx";
 
 export const allPosts = [
   {
@@ -23,5 +26,10 @@ export const allPosts = [
     slug: "parking-auction-turning-point-part-3",
     ...parkingAuctionTurningPointPart3Metadata,
     Content: ParkingAuctionTurningPointPart3
+  },
+  {
+    slug: "parking-auction-tax-turning-point-part-4",
+    ...parkingAuctionTaxTurningPointPart4Metadata,
+    Content: ParkingAuctionTaxTurningPointPart4
   }
 ];

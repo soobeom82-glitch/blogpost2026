@@ -182,7 +182,7 @@ function CommentManageForm({
         />
       ) : null}
       <input
-        placeholder="비밀번호"
+        placeholder={mode === "admin-delete" ? "운영자 비밀번호" : "비밀번호"}
         type="password"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
@@ -194,7 +194,9 @@ function CommentManageForm({
             ? "처리 중..."
             : mode === "edit"
               ? "수정 저장"
-              : "댓글 삭제"}
+              : mode === "admin-delete"
+                ? "관리 삭제"
+                : "댓글 삭제"}
         </button>
         <button className="ghost-button" type="button" onClick={onCancel}>
           취소
@@ -204,10 +206,11 @@ function CommentManageForm({
   );
 }
 
-function CommentItem({ slug, comment, onSubmitted }) {
+function CommentItem({ slug, comment, onSubmitted, canAdminDelete }) {
   const [replying, setReplying] = useState(false);
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [adminDeleting, setAdminDeleting] = useState(false);
 
   async function handleEdit({ password, content }) {
     try {
@@ -270,6 +273,39 @@ function CommentItem({ slug, comment, onSubmitted }) {
     }
   }
 
+  async function handleAdminDelete({ password }) {
+    try {
+      const response = await fetch(`/api/posts/${slug}/comments`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          commentId: comment.id,
+          adminPassword: password
+        })
+      });
+
+      if (response.status === 403) {
+        return "운영자 비밀번호가 맞지 않습니다.";
+      }
+
+      if (!response.ok) {
+        return await readErrorMessage(
+          response,
+          "운영자 삭제 처리에 실패했습니다."
+        );
+      }
+
+      const payload = await response.json();
+      setAdminDeleting(false);
+      onSubmitted(payload);
+      return null;
+    } catch {
+      return "운영자 삭제 처리에 실패했습니다.";
+    }
+  }
+
   return (
     <li className="comment-item">
       <article className="comment-bubble">
@@ -308,10 +344,25 @@ function CommentItem({ slug, comment, onSubmitted }) {
               setDeleting((value) => !value);
               setReplying(false);
               setEditing(false);
+              setAdminDeleting(false);
             }}
           >
             {deleting ? "삭제 닫기" : "삭제"}
           </button>
+          {canAdminDelete ? (
+            <button
+              className="text-button text-button-danger"
+              type="button"
+              onClick={() => {
+                setAdminDeleting((value) => !value);
+                setReplying(false);
+                setEditing(false);
+                setDeleting(false);
+              }}
+            >
+              {adminDeleting ? "관리 삭제 닫기" : "관리 삭제"}
+            </button>
+          ) : null}
         </div>
       </article>
 
@@ -351,6 +402,16 @@ function CommentItem({ slug, comment, onSubmitted }) {
         </div>
       ) : null}
 
+      {adminDeleting ? (
+        <div className="reply-form-wrap">
+          <CommentManageForm
+            mode="admin-delete"
+            onCancel={() => setAdminDeleting(false)}
+            onSubmit={handleAdminDelete}
+          />
+        </div>
+      ) : null}
+
       {comment.replies.length ? (
         <ul className="reply-list">
           {comment.replies.map((reply) => (
@@ -359,6 +420,7 @@ function CommentItem({ slug, comment, onSubmitted }) {
               slug={slug}
               comment={reply}
               onSubmitted={onSubmitted}
+              canAdminDelete={canAdminDelete}
             />
           ))}
         </ul>
@@ -370,7 +432,8 @@ function CommentItem({ slug, comment, onSubmitted }) {
 export default function CommentsSection({
   slug,
   initialComments,
-  initialCommentCount
+  initialCommentCount,
+  canAdminDelete = false
 }) {
   const [comments, setComments] = useState(initialComments);
   const [commentCount, setCommentCount] = useState(initialCommentCount);
@@ -419,6 +482,13 @@ export default function CommentsSection({
         <p>{commentCount}개</p>
       </div>
 
+      <p className="comments-note">
+        작성자는 비밀번호로 댓글을 수정·삭제할 수 있습니다.
+        {canAdminDelete
+          ? " 운영자는 별도 비밀번호로 관리 삭제할 수 있습니다."
+          : ""}
+      </p>
+
       <CommentForm
         slug={slug}
         submitLabel="댓글 등록"
@@ -432,6 +502,7 @@ export default function CommentsSection({
             slug={slug}
             comment={comment}
             onSubmitted={handleSubmitted}
+            canAdminDelete={canAdminDelete}
           />
         ))}
       </ul>

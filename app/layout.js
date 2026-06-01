@@ -13,6 +13,12 @@ export const metadata = {
   title: "Operator's Log",
   description: "실전 사업 운영 인터뷰 모음",
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: siteUrl,
+    types: {
+      "application/rss+xml": `${siteUrl}/feed.xml`
+    }
+  },
   verification: {
     google: googleSiteVerification
   },
@@ -34,10 +40,25 @@ export const metadata = {
 const categories = ["주차장", "무인카페"];
 
 export default function RootLayout({ children }) {
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Operator's Log",
+    url: siteUrl,
+    description: "실전 사업 운영 인터뷰 모음",
+    inLanguage: "ko-KR"
+  };
+
   return (
     <html lang="ko">
       <body>
         <AdSenseScript />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema)
+          }}
+        />
         <div className="topbar">
           <div className="topbar-inner">
             <a className="brand brand-inverse" href="/">

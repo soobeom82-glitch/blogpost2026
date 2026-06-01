@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   createPostComment,
+  deletePostCommentAsAdmin,
   deletePostComment,
   getPostComments,
   getPostStats,
@@ -67,6 +68,27 @@ export async function PATCH(request, { params }) {
 export async function DELETE(request, { params }) {
   const { slug } = await params;
   const body = await request.json();
+  const adminPassword = process.env.COMMENT_ADMIN_PASSWORD;
+
+  if (adminPassword && body.commentId && body.adminPassword) {
+    if (body.adminPassword !== adminPassword) {
+      return NextResponse.json(
+        { message: "invalid admin password" },
+        { status: 403 }
+      );
+    }
+
+    const payload = await deletePostCommentAsAdmin(slug, body);
+
+    if (payload.error === "not_found") {
+      return NextResponse.json(
+        { message: "comment not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(payload);
+  }
 
   if (!body.commentId || !body.password) {
     return NextResponse.json(

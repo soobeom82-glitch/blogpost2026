@@ -20,9 +20,33 @@ export async function generateMetadata({ params }) {
     return {};
   }
 
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://blogpost2026.vercel.app");
+  const url = `${siteUrl}/blog/${post.slug}`;
+
   return {
     title: `${post.title} | Operator's Log`,
-    description: post.summary
+    description: post.summary,
+    alternates: {
+      canonical: url
+    },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.summary,
+      url,
+      images: post.image ? [post.image] : undefined,
+      publishedTime: post.publishedAt
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: post.image ? [post.image] : undefined
+    }
   };
 }
 
@@ -37,9 +61,40 @@ export default async function BlogPostPage({ params }) {
   const Content = post.Content;
   const comments = await getPostComments(slug);
   const { previousPost, nextPost } = await getAdjacentPosts(slug);
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://blogpost2026.vercel.app");
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    mainEntityOfPage: `${siteUrl}/blog/${slug}`,
+    image: post.image ? [`${siteUrl}${post.image}`] : undefined,
+    articleSection: post.category,
+    author: {
+      "@type": "Organization",
+      name: "Operator's Log"
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Operator's Log"
+    },
+    inLanguage: "ko-KR"
+  };
 
   return (
     <article className="post-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema)
+        }}
+      />
       <a className="back-link" href="/">
         ← 목록으로
       </a>
@@ -97,6 +152,7 @@ export default async function BlogPostPage({ params }) {
         slug={slug}
         initialComments={comments}
         initialCommentCount={post.commentCount}
+        canAdminDelete={Boolean(process.env.COMMENT_ADMIN_PASSWORD)}
       />
     </article>
   );

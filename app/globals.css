@@ -868,6 +868,13 @@ a {
   margin: 10px 0 0 24px;
 }
 
+.comments-note {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
 .form-error {
   margin: 0;
   color: #a43818;

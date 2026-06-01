@@ -22,6 +22,10 @@ export default async function sitemap() {
       url: `${baseUrl}/privacy`,
       lastModified: new Date()
     },
+    {
+      url: `${baseUrl}/feed.xml`,
+      lastModified: new Date()
+    },
     ...posts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified: post.publishedAt

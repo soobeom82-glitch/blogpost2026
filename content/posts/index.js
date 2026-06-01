@@ -10,6 +10,9 @@ import ParkingAuctionTurningPointPart3, {
 import ParkingAuctionTaxTurningPointPart4, {
   metadata as parkingAuctionTaxTurningPointPart4Metadata
 } from "./parking-auction-tax-turning-point-part-4.mdx";
+import ParkingAuctionRentalcarPart5, {
+  metadata as parkingAuctionRentalcarPart5Metadata
+} from "./parking-auction-rentalcar-part-5.mdx";
 
 export const allPosts = [
   {
@@ -31,5 +34,10 @@ export const allPosts = [
     slug: "parking-auction-tax-turning-point-part-4",
     ...parkingAuctionTaxTurningPointPart4Metadata,
     Content: ParkingAuctionTaxTurningPointPart4
+  },
+  {
+    slug: "parking-auction-rentalcar-part-5",
+    ...parkingAuctionRentalcarPart5Metadata,
+    Content: ParkingAuctionRentalcarPart5
   }
 ];

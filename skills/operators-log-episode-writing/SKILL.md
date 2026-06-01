@@ -69,6 +69,29 @@ If the answer opens a more useful follow-up path, take that path before moving o
 
 Write the post in MDX under `content/posts/`.
 
+Before drafting the body, pause for a media check.
+
+Ask whether there are any:
+
+- photos
+- CCTV captures
+- screenshots
+- receipts
+- documents
+- notes or signs
+
+that belong to the episode.
+
+Do this only after the episode scope is clear and the main facts are gathered, but before writing the draft. The goal is to avoid rewriting the episode later just to insert obvious supporting material.
+
+If assets exist:
+
+- identify which paragraph each asset belongs to
+- decide which one should become the card/share thumbnail
+- decide whether any image should be used only inline rather than as metadata
+
+If no assets exist, proceed without forcing one.
+
 Required format:
 
 - metadata at the top
@@ -156,6 +179,7 @@ Use images this way:
 - keep metadata image for cards and sharing
 - place the actual figure in the body where the event is discussed
 - add a caption that explains why the image matters in the story
+- confirm image candidates before drafting so the text is written around them, not patched after the fact
 
 If multiple images exist for one scene, place them beside the paragraph that mentions the relevant object or action.
 
@@ -194,11 +218,12 @@ When revising an existing episode, prefer editing the current file instead of cl
 Before finishing:
 
 1. confirm the episode scope is not too wide
-2. confirm the Q/A rhythm still reads like an interview
-3. confirm mid-episode commentary is present but not excessive
-4. confirm glossary notes appear after the relevant term
-5. confirm images appear where the event is discussed
-6. confirm the file title and summary match the current series style
-7. confirm there are no obvious factual contradictions or unsupported overstatements
-8. confirm spelling, spacing, and sentence flow are clean
-9. push the changes when the user expects direct publishing workflow
+2. confirm whether photos, CCTV captures, or other assets exist before drafting
+3. confirm the Q/A rhythm still reads like an interview
+4. confirm mid-episode commentary is present but not excessive
+5. confirm glossary notes appear after the relevant term
+6. confirm images appear where the event is discussed
+7. confirm the file title and summary match the current series style
+8. confirm there are no obvious factual contradictions or unsupported overstatements
+9. confirm spelling, spacing, and sentence flow are clean
+10. push the changes when the user expects direct publishing workflow

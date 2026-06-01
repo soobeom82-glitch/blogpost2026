@@ -82,6 +82,7 @@
 - [콘텐츠 백로그](./docs/content-backlog.md)
 - [첫 글 개요](./docs/first-post-outline.md)
 - [인터뷰 진행 방식](./docs/interview-workflow.md)
+- [Search Console 체크리스트](./docs/search-console-checklist.md)
 - [Vercel 배포 가이드](./DEPLOY.md)
 
 ## 현재 발행 방식

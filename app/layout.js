@@ -37,7 +37,10 @@ export const metadata = {
   }
 };
 
-const categories = ["주차장", "무인카페"];
+const categories = [
+  { label: "주차장", href: "/category/parking" },
+  { label: "무인카페", href: "/category/cafe" }
+];
 
 export default function RootLayout({ children }) {
   const websiteSchema = {
@@ -67,8 +70,8 @@ export default function RootLayout({ children }) {
 
             <nav className="top-nav" aria-label="카테고리">
               {categories.map((category) => (
-                <a key={category} className="top-nav-link" href="/">
-                  {category}
+                <a key={category.label} className="top-nav-link" href={category.href}>
+                  {category.label}
                 </a>
               ))}
             </nav>
@@ -93,6 +96,8 @@ export default function RootLayout({ children }) {
 
           <footer className="site-footer">
             <nav className="footer-nav" aria-label="사이트 정보">
+              <a href="/category/parking">주차장</a>
+              <a href="/category/cafe">무인카페</a>
               <a href="/about">소개</a>
               <a href="/contact">문의</a>
               <a href="/privacy">개인정보처리방침</a>

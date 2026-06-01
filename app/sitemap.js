@@ -23,6 +23,14 @@ export default async function sitemap() {
       lastModified: new Date()
     },
     {
+      url: `${baseUrl}/category/parking`,
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/category/cafe`,
+      lastModified: new Date()
+    },
+    {
       url: `${baseUrl}/feed.xml`,
       lastModified: new Date()
     },

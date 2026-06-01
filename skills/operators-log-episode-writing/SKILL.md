@@ -87,6 +87,25 @@ Use this content pattern:
 
 Do not turn the piece into a pure essay. The Q/A rhythm must remain visible.
 
+### 5. Review before finishing
+
+After drafting, always run a short revision pass on the episode itself.
+
+Check for:
+
+- objective facts that contradict earlier answers or other episodes
+- business, tax, or operational claims that seem too strong for the evidence given
+- spelling, spacing, and honorific consistency
+- awkward or broken sentences
+
+If a point cannot be verified from the interview or repo context:
+
+- do not invent certainty
+- soften the wording or mark it as the speaker's interpretation
+- ask a follow-up question only when the gap changes the meaning materially
+
+Prefer fixing the prose directly when the issue is clearly linguistic rather than factual.
+
 ## Episode style rules
 
 ### Commentary rhythm
@@ -123,6 +142,7 @@ Always:
 
 - convert rough spoken fragments into natural written Korean
 - keep quoted answers in honorific form
+- correct obvious spelling and spacing issues inside quotes
 - avoid over-cleaning to the point that the voice disappears
 
 ## Images and glossary notes
@@ -179,4 +199,6 @@ Before finishing:
 4. confirm glossary notes appear after the relevant term
 5. confirm images appear where the event is discussed
 6. confirm the file title and summary match the current series style
-7. push the changes when the user expects direct publishing workflow
+7. confirm there are no obvious factual contradictions or unsupported overstatements
+8. confirm spelling, spacing, and sentence flow are clean
+9. push the changes when the user expects direct publishing workflow

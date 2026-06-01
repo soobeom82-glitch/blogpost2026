@@ -352,7 +352,9 @@ a {
 }
 
 .post-card {
+  grid-template-rows: auto auto 1fr auto;
   gap: 18px;
+  height: 100%;
   overflow: hidden;
   padding: 0 0 22px;
   transition: transform 180ms ease, border-color 180ms ease;
@@ -365,15 +367,19 @@ a {
 
 .post-visual {
   display: block;
-  min-height: 210px;
+  aspect-ratio: 4 / 5;
+  min-height: 0;
 }
 
 .post-visual-image {
-  min-height: 210px;
+  height: 100%;
+  min-height: 0;
+  object-position: center top;
 }
 
 .post-card-body {
   display: grid;
+  align-content: start;
   gap: 10px;
   padding: 0 24px;
 }
@@ -392,12 +398,20 @@ a {
   font-size: 1.36rem;
   line-height: 1.4;
   letter-spacing: -0.02em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .post-card-body p {
   margin: 0;
   color: var(--muted);
   line-height: 1.75;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
 }
 
 .post-meta {

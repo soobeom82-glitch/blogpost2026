@@ -1,16 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostCard from "../../../components/post-card";
-import { getAllPosts, getPostsByCategory } from "../../../lib/posts";
+import { getAllPosts } from "../../../lib/posts";
 
 const categoryMap = {
   parking: {
     label: "주차장",
+    matches: ["주차장", "무인주차장"],
     description:
       "공영주차장 낙찰, 무인화, 민원, 수요 변화, 운영 최적화까지 실제 주차장 운영에서 벌어진 사건을 모아둔 연재 아카이브입니다."
   },
   cafe: {
     label: "무인카페",
+    matches: ["무인카페"],
     description:
       "무인카페에서 벌어진 시설 파손, 출입 이슈, 손님 대응, 공간 운영의 현실을 인터뷰 기반 글로 정리할 카테고리입니다."
   }
@@ -42,8 +44,9 @@ export default async function CategoryPage({ params }) {
     notFound();
   }
 
-  const posts = await getPostsByCategory(category.label);
   const allPosts = await getAllPosts();
+  const posts = allPosts.filter((post) => category.matches.includes(post.category));
+  const otherPosts = allPosts.filter((post) => !category.matches.includes(post.category));
 
   return (
     <div className="category-page">
@@ -79,11 +82,9 @@ export default async function CategoryPage({ params }) {
         </div>
 
         <div className="latest-list-wrap">
-          <ul className="latest-list">
-            {allPosts
-              .filter((post) => post.category !== category.label)
-              .slice(0, 4)
-              .map((post) => (
+          {otherPosts.length ? (
+            <ul className="latest-list">
+              {otherPosts.slice(0, 4).map((post) => (
                 <li key={post.slug} className="latest-item">
                   <Link href={`/blog/${post.slug}`}>
                     <span className="latest-category">{post.category}</span>
@@ -95,7 +96,10 @@ export default async function CategoryPage({ params }) {
                   </Link>
                 </li>
               ))}
-          </ul>
+            </ul>
+          ) : (
+            <p>아직 다른 카테고리에 공개된 글이 없습니다.</p>
+          )}
         </div>
       </section>
     </div>

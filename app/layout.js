@@ -66,11 +66,12 @@ export default function RootLayout({ children }) {
           <div className="topbar-inner">
             <a className="brand brand-inverse" href="/">
               <span className="brand-mark" aria-hidden="true">
-                <img
-                  src="/images/site-representative.jpg"
-                  alt=""
-                  className="brand-mark-image"
-                />
+                <svg viewBox="0 0 24 24" className="brand-mark-icon" role="presentation">
+                  <path d="M12 3a3.5 3.5 0 0 0-3.5 3.5v5a3.5 3.5 0 1 0 7 0v-5A3.5 3.5 0 0 0 12 3Z" />
+                  <path d="M6.5 10.5a5.5 5.5 0 0 0 11 0" />
+                  <path d="M12 16v4" />
+                  <path d="M9.5 20h5" />
+                </svg>
               </span>
               <strong>OPERATOR&apos;S LOG</strong>
             </a>

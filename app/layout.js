@@ -65,6 +65,13 @@ export default function RootLayout({ children }) {
         <div className="topbar">
           <div className="topbar-inner">
             <a className="brand brand-inverse" href="/">
+              <span className="brand-mark" aria-hidden="true">
+                <img
+                  src="/images/site-representative.jpg"
+                  alt=""
+                  className="brand-mark-image"
+                />
+              </span>
               <strong>OPERATOR&apos;S LOG</strong>
             </a>
 

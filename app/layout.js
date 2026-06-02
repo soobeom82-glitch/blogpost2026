@@ -8,6 +8,8 @@ const siteUrl =
     : "https://blogpost2026.vercel.app");
 const googleSiteVerification =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined;
+const adsenseClient =
+  process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() || undefined;
 
 export const metadata = {
   title: "Operator's Log",
@@ -22,6 +24,11 @@ export const metadata = {
   verification: {
     google: googleSiteVerification
   },
+  other: adsenseClient
+    ? {
+        "google-adsense-account": adsenseClient
+      }
+    : undefined,
   openGraph: {
     title: "Operator's Log",
     description: "실전 사업 운영 인터뷰 모음",

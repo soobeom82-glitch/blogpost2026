@@ -1,9 +1,11 @@
-import { getAllPosts } from "../lib/posts";
+import { allPosts } from "../content/posts";
 
 export default async function sitemap() {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
-  const posts = await getAllPosts();
+  const posts = [...allPosts].sort((a, b) =>
+    a.publishedAt < b.publishedAt ? 1 : -1
+  );
 
   return [
     {

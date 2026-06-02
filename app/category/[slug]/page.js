@@ -47,6 +47,7 @@ export default async function CategoryPage({ params }) {
   const allPosts = await getAllPosts();
   const posts = allPosts.filter((post) => category.matches.includes(post.category));
   const otherPosts = allPosts.filter((post) => !category.matches.includes(post.category));
+  const firstPost = posts.at(-1) || null;
 
   return (
     <div className="category-page">
@@ -54,7 +55,14 @@ export default async function CategoryPage({ params }) {
         <p className="eyebrow">Category</p>
         <h1>{category.label}</h1>
         <p className="category-summary">{category.description}</p>
-        <p className="category-count">현재 공개 글 {posts.length}편</p>
+        <div className="category-meta-row">
+          <p className="category-count">현재 공개 글 {posts.length}편</p>
+          {firstPost ? (
+            <Link href={`/blog/${firstPost.slug}`} className="text-button category-first-link">
+              첫편 보기
+            </Link>
+          ) : null}
+        </div>
       </header>
 
       {posts.length ? (

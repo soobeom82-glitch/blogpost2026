@@ -61,6 +61,9 @@ export default async function BlogPostPage({ params }) {
   const Content = post.Content;
   const comments = await getPostComments(slug);
   const { previousPost, nextPost } = await getAdjacentPosts(slug);
+  const allPosts = await getAllPosts();
+  const seriesPosts = allPosts.filter((item) => item.category === post.category);
+  const firstPost = seriesPosts.at(-1) || null;
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -140,6 +143,14 @@ export default async function BlogPostPage({ params }) {
             <div className="post-page-link post-page-link-empty" aria-hidden="true" />
           )}
         </nav>
+      ) : null}
+
+      {firstPost && firstPost.slug !== slug ? (
+        <div className="post-series-actions">
+          <Link href={`/blog/${firstPost.slug}`} className="text-button post-series-link">
+            첫편 보기
+          </Link>
+        </div>
       ) : null}
 
       <div className="post-bottom-actions">

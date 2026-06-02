@@ -499,6 +499,18 @@ a {
   font-size: 0.94rem;
 }
 
+.category-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.category-first-link,
+.post-series-link {
+  font-size: 0.94rem;
+}
+
 .category-empty,
 .latest-list-wrap {
   padding: 24px 28px;
@@ -801,6 +813,11 @@ a {
   margin: 26px auto 0;
   padding-top: 20px;
   border-top: 1px solid var(--line);
+}
+
+.post-series-actions {
+  max-width: 42rem;
+  margin: 16px auto 0;
 }
 
 .back-link-bottom {

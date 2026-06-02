@@ -19,6 +19,9 @@ import ParkingAuctionLprErrorPart6, {
 import ParkingAuctionBarrierAccidentPart7, {
   metadata as parkingAuctionBarrierAccidentPart7Metadata
 } from "./parking-auction-barrier-accident-part-7.mdx";
+import ParkingAuctionTrashFraudPart8, {
+  metadata as parkingAuctionTrashFraudPart8Metadata
+} from "./parking-auction-trash-fraud-part-8.mdx";
 
 export const allPosts = [
   {
@@ -55,5 +58,10 @@ export const allPosts = [
     slug: "parking-auction-barrier-accident-part-7",
     ...parkingAuctionBarrierAccidentPart7Metadata,
     Content: ParkingAuctionBarrierAccidentPart7
+  },
+  {
+    slug: "parking-auction-trash-fraud-part-8",
+    ...parkingAuctionTrashFraudPart8Metadata,
+    Content: ParkingAuctionTrashFraudPart8
   }
 ];

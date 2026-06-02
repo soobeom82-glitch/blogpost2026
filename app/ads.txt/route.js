@@ -8,7 +8,7 @@ function getPublisherId() {
     return "";
   }
 
-  return rawClient.replace(/^ca-/, "");
+  return rawClient.trim().replace(/^ca-/, "");
 }
 
 export function GET() {

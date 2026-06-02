@@ -1,6 +1,6 @@
 import Script from "next/script";
 
-const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim();
 
 export default function AdSenseScript() {
   if (!adsenseClient) {

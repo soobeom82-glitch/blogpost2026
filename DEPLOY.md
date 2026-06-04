@@ -41,6 +41,11 @@ Official references:
 13. After `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` are set, this project will automatically:
    - send a Telegram message when a post page view is recorded
    - send a Telegram message when a reply comment is created
+   - send a Telegram message when a post receives a like
+   - send a daily Telegram report at 07:00 KST for the previous day's visits, likes, and comments
+14. Daily report endpoints:
+   - scheduled: `/api/cron/daily-report`
+   - manual preview send: `/api/cron/daily-report?preview=1`
 
 Vercel documents Next.js deployment as zero-configuration when importing a Next.js project.
 

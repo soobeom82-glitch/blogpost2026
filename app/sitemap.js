@@ -2,7 +2,10 @@ import { allPosts } from "../content/posts";
 
 export default async function sitemap() {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://blogpost2026.vercel.app");
   const posts = [...allPosts].sort((a, b) =>
     a.publishedAt < b.publishedAt ? 1 : -1
   );

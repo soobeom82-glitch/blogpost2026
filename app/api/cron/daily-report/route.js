@@ -27,7 +27,23 @@ export async function GET(request) {
   }
 
   try {
-    await notifyDailyReport(summary, { preview });
+    const sent = await notifyDailyReport(summary, { preview });
+
+    if (!sent) {
+      if (!preview) {
+        await releaseDailyReportDelivery(summary.dateKey);
+      }
+
+      return NextResponse.json(
+        {
+          ok: false,
+          message: "Telegram is not configured",
+          preview,
+          dateKey: summary.dateKey
+        },
+        { status: 503 }
+      );
+    }
   } catch (error) {
     if (!preview) {
       await releaseDailyReportDelivery(summary.dateKey);

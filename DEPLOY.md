@@ -33,9 +33,14 @@ Official references:
    - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (optional, for Google site verification)
    - `NEXT_PUBLIC_ADSENSE_CLIENT` (optional until AdSense is approved, format: `ca-pub-xxxxxxxxxxxxxxxx`)
    - `COMMENT_ADMIN_PASSWORD` (optional, enables operator-side forced comment deletion)
+   - `TELEGRAM_BOT_TOKEN` (optional, enables Telegram notifications)
+   - `TELEGRAM_CHAT_ID` (optional, target chat id for Telegram notifications)
 12. After `NEXT_PUBLIC_ADSENSE_CLIENT` is set, this project will automatically:
    - inject the AdSense script
    - expose `/ads.txt` using the same publisher id
+13. After `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` are set, this project will automatically:
+   - send a Telegram message when a post page view is recorded
+   - send a Telegram message when a reply comment is created
 
 Vercel documents Next.js deployment as zero-configuration when importing a Next.js project.
 

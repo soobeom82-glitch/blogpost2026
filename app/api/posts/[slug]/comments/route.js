@@ -7,6 +7,7 @@ import {
   getPostStats,
   updatePostComment
 } from "../../../../../lib/blog-store";
+import { notifyReplyComment } from "../../../../../lib/telegram";
 
 export async function GET(_request, { params }) {
   const { slug } = await params;
@@ -31,6 +32,18 @@ export async function POST(request, { params }) {
   }
 
   const payload = await createPostComment(slug, body);
+
+  if (body.parentId) {
+    try {
+      await notifyReplyComment({
+        slug,
+        nickname: body.nickname,
+        content: body.content
+      });
+    } catch (error) {
+      console.error("Failed to send reply notification", error);
+    }
+  }
 
   return NextResponse.json(payload);
 }

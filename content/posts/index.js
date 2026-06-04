@@ -25,6 +25,9 @@ import ParkingAuctionTrashFraudPart8, {
 import ParkingAuctionFlightSupportPart9, {
   metadata as parkingAuctionFlightSupportPart9Metadata
 } from "./parking-auction-flight-support-part-9.mdx";
+import ParkingAuctionRedevelopmentDemandPart10, {
+  metadata as parkingAuctionRedevelopmentDemandPart10Metadata
+} from "./parking-auction-redevelopment-demand-part-10.mdx";
 
 export const allPosts = [
   {
@@ -71,5 +74,10 @@ export const allPosts = [
     slug: "parking-auction-flight-support-part-9",
     ...parkingAuctionFlightSupportPart9Metadata,
     Content: ParkingAuctionFlightSupportPart9
+  },
+  {
+    slug: "parking-auction-redevelopment-demand-part-10",
+    ...parkingAuctionRedevelopmentDemandPart10Metadata,
+    Content: ParkingAuctionRedevelopmentDemandPart10
   }
 ];

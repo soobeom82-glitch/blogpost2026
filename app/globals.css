@@ -240,6 +240,26 @@ a {
   color: var(--muted);
 }
 
+.intro-link-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.intro-link-list a {
+  display: grid;
+  gap: 6px;
+  color: inherit;
+}
+
+.intro-link-list span {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
 .intro-points {
   margin: 16px 0 0;
   padding-left: 18px;
@@ -655,6 +675,27 @@ a {
   line-height: 1.85;
 }
 
+.info-recommendations {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.info-recommendation-card {
+  display: grid;
+  gap: 8px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fafafa;
+  color: inherit;
+}
+
+.info-recommendation-card span {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
 .info-list {
   margin: 0;
   padding-left: 18px;
@@ -755,6 +796,33 @@ a {
   font-size: 1.05rem;
   line-height: 1.85;
   max-width: 42rem;
+}
+
+.quick-take {
+  max-width: 42rem;
+  margin-top: 20px;
+  padding: 18px 20px;
+  border: 1px solid rgba(229, 28, 35, 0.18);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff8f8 0%, #fffdfd 100%);
+}
+
+.quick-take-label {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.quick-take-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #3d4046;
+  line-height: 1.8;
+}
+
+.quick-take-list li + li {
+  margin-top: 8px;
 }
 
 .engagement-bar {

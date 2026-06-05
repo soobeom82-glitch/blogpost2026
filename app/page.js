@@ -9,6 +9,14 @@ export default async function HomePage() {
   const [featuredPost, ...otherPosts] = posts;
   const latestPosts = otherPosts.slice(0, 4);
   const firstPost = posts.at(-1) || null;
+  const highlightOrder = [
+    "parking-auction-origin-part-1",
+    "parking-auction-lpr-error-part-6",
+    "parking-auction-trash-fraud-part-8"
+  ];
+  const highlightPosts = highlightOrder
+    .map((slug) => posts.find((post) => post.slug === slug))
+    .filter(Boolean);
 
   return (
     <div className="home-grid">
@@ -26,6 +34,11 @@ export default async function HomePage() {
             공영주차장, 재건축으로 무너진 수요, 렌트카 유치, 번호판 오인식, 차단기 사고,
             외주업체 기만, 추가 수익화 같은 장면이 한 편씩 이어집니다.
           </p>
+          <ul className="intro-points">
+            <li>직장인이 본업과 병행하며 사업을 어떻게 굴렸는지</li>
+            <li>민원, 사고, 영업 문제를 실제로 어떻게 풀었는지</li>
+            <li>주변 변화에서 추가 수익을 어떻게 읽어냈는지</li>
+          </ul>
         </div>
 
         <div className="intro-aside">
@@ -58,6 +71,20 @@ export default async function HomePage() {
                 운영자와 인터뷰 방식 보기
               </Link>
             </div>
+          </div>
+
+          <div className="intro-card">
+            <h3>이 사이트에서 바로 보이는 사건들</h3>
+            <ul className="intro-link-list">
+              {highlightPosts.map((post) => (
+                <li key={post.slug}>
+                  <Link href={`/blog/${post.slug}`}>
+                    <strong>{post.title}</strong>
+                    <span>{post.summary}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

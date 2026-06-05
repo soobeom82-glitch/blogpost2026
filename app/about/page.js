@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "소개 | Operator's Log",
   description: "Operator's Log의 인터뷰 구조와 운영자 배경을 소개하는 페이지"
@@ -65,6 +67,20 @@ export default function AboutPage() {
             읽어도 되지만, 처음부터 순서대로 읽으면 운영자의 판단이 어떻게 쌓였는지 더 잘
             보입니다.
           </p>
+          <div className="info-recommendations">
+            <Link href="/blog/parking-auction-origin-part-1" className="info-recommendation-card">
+              <strong>1편부터 읽기</strong>
+              <span>공영주차장을 낙찰받게 된 출발점과, 왜 이 연재가 시작됐는지 이해하기 좋습니다.</span>
+            </Link>
+            <Link href="/blog/parking-auction-lpr-error-part-6" className="info-recommendation-card">
+              <strong>해결 과정이 궁금하다면</strong>
+              <span>번호판 오인식 민원을 개발로 우회한 사례라, 이 사이트의 실무 감각이 잘 드러납니다.</span>
+            </Link>
+            <Link href="/blog/parking-auction-trash-fraud-part-8" className="info-recommendation-card">
+              <strong>사건성이 강한 편부터</strong>
+              <span>청소 외주가 쓰레기를 연출해 사진을 보낸 사건으로, 운영 리스크가 얼마나 현실적인지 보입니다.</span>
+            </Link>
+          </div>
         </section>
 
         <section>

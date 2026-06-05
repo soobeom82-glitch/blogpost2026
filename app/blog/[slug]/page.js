@@ -109,6 +109,16 @@ export default async function BlogPostPage({ params }) {
         </p>
         <h1>{post.title}</h1>
         <p className="post-summary">{post.summary}</p>
+        {post.quickTake?.length ? (
+          <aside className="quick-take">
+            <p className="quick-take-label">먼저 요약하면</p>
+            <ul className="quick-take-list">
+              {post.quickTake.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </aside>
+        ) : null}
       </header>
 
       <div className="post-body">

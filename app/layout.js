@@ -13,7 +13,8 @@ const adsenseClient =
 
 export const metadata = {
   title: "Operator's Log",
-  description: "실전 사업 운영 인터뷰 모음",
+  description:
+    "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: siteUrl,
@@ -31,7 +32,8 @@ export const metadata = {
     : undefined,
   openGraph: {
     title: "Operator's Log",
-    description: "실전 사업 운영 인터뷰 모음",
+    description:
+      "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
     url: siteUrl,
     siteName: "Operator's Log",
     images: ["/images/site-representative.jpg"]
@@ -39,7 +41,8 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Operator's Log",
-    description: "실전 사업 운영 인터뷰 모음",
+    description:
+      "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
     images: ["/images/site-representative.jpg"]
   }
 };
@@ -55,7 +58,8 @@ export default function RootLayout({ children }) {
     "@type": "WebSite",
     name: "Operator's Log",
     url: siteUrl,
-    description: "실전 사업 운영 인터뷰 모음",
+    description:
+      "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
     inLanguage: "ko-KR"
   };
 
@@ -101,9 +105,10 @@ export default function RootLayout({ children }) {
             </div>
 
             <p className="site-intro">
-              실제 운영에서 벌어진 일과 판단 과정을 인터뷰 기반 글로
-              기록합니다. 잘 포장한 성공담보다, 실제 현장에서 부딪힌 변수와
-              선택의 흐름을 남기는 뉴스룸 형태의 아카이브입니다.
+              직장인이 직접 운영한 무인주차장과 무인카페 경험을, AI가 질문하고
+              운영자가 답하는 방식으로 기록합니다. 잘 포장된 성공담보다 실제
+              현장에서 부딪힌 변수, 비용, 민원, 영업, 판단의 흐름을 남기는
+              인터뷰 아카이브입니다.
             </p>
           </header>
 

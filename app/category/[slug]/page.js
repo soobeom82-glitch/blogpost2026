@@ -8,7 +8,7 @@ const categoryMap = {
     label: "주차장",
     matches: ["주차장", "무인주차장"],
     description:
-      "공영주차장 낙찰부터 무인화, 번호판 오인식, 차단기 사고, 재건축 수요, 제휴 영업까지. 실제 운영자가 부딪힌 문제와 해결 과정을 인터뷰로 기록한 무인주차장 운영 아카이브입니다."
+      "공영주차장 낙찰, 무인화, 번호판 오인식, 차단기 사고, 재건축 수요, 제휴 영업까지. 직장인이 직접 운영하며 겪은 사건과 판단을 AI 인터뷰 형식으로 기록한 무인주차장 아카이브입니다."
   },
   cafe: {
     label: "무인카페",
@@ -69,7 +69,7 @@ export default async function CategoryPage({ params }) {
         <section className="post-section">
           <div className="section-head">
             <h2>{category.label} 연재</h2>
-            <p>낙찰부터 민원, 영업, 수익화까지 한 흐름으로 읽어보세요.</p>
+            <p>낙찰부터 민원, 영업, 수익화까지 한 운영자의 판단 흐름을 순서대로 읽어보세요.</p>
           </div>
 
           <div className="post-list">

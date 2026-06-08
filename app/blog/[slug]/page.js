@@ -26,17 +26,18 @@ export async function generateMetadata({ params }) {
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "https://blogpost2026.vercel.app");
   const url = `${siteUrl}/blog/${post.slug}`;
+  const description = post.seoDescription || post.summary;
 
   return {
     title: `${post.title} | Operator's Log`,
-    description: post.summary,
+    description,
     alternates: {
       canonical: url
     },
     openGraph: {
       type: "article",
       title: post.title,
-      description: post.summary,
+      description,
       url,
       images: post.image ? [post.image] : undefined,
       publishedTime: post.publishedAt
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.summary,
+      description,
       images: post.image ? [post.image] : undefined
     }
   };

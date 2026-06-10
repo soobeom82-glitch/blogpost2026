@@ -31,6 +31,9 @@ import ParkingAuctionRedevelopmentDemandPart10, {
 import ParkingAuctionConstructionDemandPart11, {
   metadata as parkingAuctionConstructionDemandPart11Metadata
 } from "./parking-auction-construction-demand-part-11.mdx";
+import ParkingAuctionCommercialDemandPart12, {
+  metadata as parkingAuctionCommercialDemandPart12Metadata
+} from "./parking-auction-commercial-demand-part-12.mdx";
 
 export const allPosts = [
   {
@@ -87,5 +90,10 @@ export const allPosts = [
     slug: "parking-auction-construction-demand-part-11",
     ...parkingAuctionConstructionDemandPart11Metadata,
     Content: ParkingAuctionConstructionDemandPart11
+  },
+  {
+    slug: "parking-auction-commercial-demand-part-12",
+    ...parkingAuctionCommercialDemandPart12Metadata,
+    Content: ParkingAuctionCommercialDemandPart12
   }
 ];

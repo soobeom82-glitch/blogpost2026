@@ -209,7 +209,7 @@ a {
   font-size: clamp(1.7rem, 3vw, 2.7rem);
   line-height: 1.18;
   letter-spacing: -0.03em;
-  max-width: 15ch;
+  max-width: 16ch;
 }
 
 .intro-copy p {
@@ -238,6 +238,50 @@ a {
 .intro-card p {
   margin: 0;
   color: var(--muted);
+}
+
+.series-overview {
+  display: grid;
+  gap: 18px;
+}
+
+.series-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.series-overview-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  border-radius: 24px;
+  padding: 22px 22px 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.series-overview-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.35;
+}
+
+.series-overview-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.series-overview-list {
+  margin: 4px 0 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 8px;
+}
+
+.series-overview-list a {
+  color: inherit;
 }
 
 .intro-link-list {
@@ -621,6 +665,11 @@ a {
 .category-empty,
 .latest-list-wrap {
   padding: 24px 28px;
+}
+
+.category-series-groups {
+  display: grid;
+  gap: 30px;
 }
 
 .info-page {

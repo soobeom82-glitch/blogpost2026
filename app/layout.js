@@ -14,7 +14,17 @@ const adsenseClient =
 export const metadata = {
   title: "Operator's Log",
   description:
-    "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+    "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+  keywords: [
+    "주차장 공매",
+    "공영주차장 낙찰",
+    "주차장 사업",
+    "무인주차장 운영",
+    "주차장 민원 대응",
+    "주차장 수익화",
+    "실전 사업 운영",
+    "무인카페 운영"
+  ],
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: siteUrl,
@@ -33,7 +43,7 @@ export const metadata = {
   openGraph: {
     title: "Operator's Log",
     description:
-      "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+      "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
     url: siteUrl,
     siteName: "Operator's Log",
     images: ["/images/site-representative.jpg"]
@@ -42,7 +52,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Operator's Log",
     description:
-      "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+      "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
     images: ["/images/site-representative.jpg"]
   }
 };
@@ -59,8 +69,10 @@ export default function RootLayout({ children }) {
     name: "Operator's Log",
     url: siteUrl,
     description:
-      "직장인이 직접 운영한 무인주차장과 무인카페의 사건, 시행착오, 수익화 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
-    inLanguage: "ko-KR"
+      "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+    inLanguage: "ko-KR",
+    keywords:
+      "주차장 공매, 공영주차장 낙찰, 주차장 사업, 무인주차장 운영, 주차장 수익화, 주차장 민원 대응"
   };
 
   return (
@@ -105,10 +117,10 @@ export default function RootLayout({ children }) {
             </div>
 
             <p className="site-intro">
-              직장인이 직접 운영한 무인주차장과 무인카페 경험을, AI가 질문하고
+              공영주차장 공매로 주차장을 낙찰받아 실제 운영하면서 겪은 민원,
+              사고, 추가 수익화, 세무 판단과 무인카페 운영 경험을, AI가 질문하고
               운영자가 답하는 방식으로 기록합니다. 잘 포장된 성공담보다 실제
-              현장에서 부딪힌 변수, 비용, 민원, 영업, 판단의 흐름을 남기는
-              인터뷰 아카이브입니다.
+              현장에서 어떤 선택을 했는지 남기는 인터뷰 아카이브입니다.
             </p>
           </header>
 

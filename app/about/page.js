@@ -2,7 +2,8 @@ import Link from "next/link";
 
 export const metadata = {
   title: "소개 | Operator's Log",
-  description: "Operator's Log의 인터뷰 구조와 운영자 배경을 소개하는 페이지"
+  description:
+    "주차장 공매, 공영주차장 낙찰, 무인주차장 운영 기록을 어떤 방식으로 인터뷰하고 정리하는지 소개하는 페이지"
 };
 
 export default function AboutPage() {
@@ -12,8 +13,9 @@ export default function AboutPage() {
         <p className="eyebrow">About</p>
         <h1>Operator&apos;s Log 소개</h1>
         <p className="info-page-summary">
-          직장인이 직접 겪은 사업 운영의 사건과 판단을, AI 인터뷰 형식으로
-          복기해 쌓아가는 아카이브입니다.
+          주차장 공매부터 낙찰 이후 운영, 추가 수익 만들기, 민원과 사고 대응까지
+          직장인이 직접 겪은 사업 운영의 사건과 판단을, AI 인터뷰 형식으로 복기해
+          쌓아가는 아카이브입니다.
         </p>
       </div>
 
@@ -41,11 +43,11 @@ export default function AboutPage() {
           <h2>왜 읽어야 하나요?</h2>
           <p>
             Operator&apos;s Log는 잘 포장된 성공담보다, 현장에서 실제로 부딪힌
-            문제와 그때 어떤 판단을 했는지를 남기는 데 집중합니다. 무인주차장,
-            무인카페, 세무와 운영 이슈처럼 검색만으로는 잘 안 나오는 실무 감각을
-            인터뷰 기반 연재로 정리합니다. 실제로 돈이 어떻게 움직였고, 민원이
-            어떻게 들어왔고, 어떤 선택이 통했는지까지 같이 보려는 분께 맞는
-            사이트입니다.
+            문제와 그때 어떤 판단을 했는지를 남기는 데 집중합니다. 특히
+            주차장 공매, 공영주차장 낙찰, 무인주차장 운영, 주차장 추가 수익,
+            주차장 민원 대응처럼 검색만으로는 잘 안 나오는 실무 감각을 인터뷰
+            기반 연재로 정리합니다. 실제로 돈이 어떻게 움직였고, 민원이 어떻게
+            들어왔고, 어떤 선택이 통했는지까지 같이 보려는 분께 맞는 사이트입니다.
           </p>
         </section>
 

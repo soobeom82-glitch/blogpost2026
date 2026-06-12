@@ -21,7 +21,7 @@ const categoryMap = {
     label: "주차장",
     matches: ["주차장", "무인주차장"],
     description:
-      "공영주차장 낙찰부터 민원, 사고, 영업, 수익화까지. 직장인이 직접 운영하며 겪은 문제 해결과 수요 발굴, 사업 판단을 AI 인터뷰 형식으로 기록한 아카이브입니다. 운영기와 별도로 공매·입찰 가이드도 이어서 보강할 예정입니다."
+      "주차장 공매, 공영주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지. 직장인이 직접 운영하며 겪은 문제 해결과 수요 발굴, 사업 판단을 AI 인터뷰 형식으로 기록한 아카이브입니다. 운영기와 별도로 공매·입찰 가이드도 이어서 보강할 예정입니다."
   },
   cafe: {
     label: "무인카페",
@@ -44,7 +44,10 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${category.label} | Operator's Log`,
+    title:
+      slug === "parking"
+        ? "주차장 공매, 낙찰, 운영 기록 | Operator's Log"
+        : `${category.label} | Operator's Log`,
     description: category.description
   };
 }
@@ -83,7 +86,7 @@ export default async function CategoryPage({ params }) {
         <section className="series-overview">
           <div className="section-head">
             <h2>{category.label} 연재는 이렇게 나뉩니다</h2>
-            <p>문제 해결, 수요 발굴, 사업 판단으로 묶어서 보면 흐름이 더 잘 보입니다.</p>
+            <p>공매 이후 실제 운영에서 벌어진 일을 문제 해결, 수요 발굴, 사업 판단으로 나눠 읽을 수 있습니다.</p>
           </div>
           <div className="series-overview-grid">
             {groupedPosts.map((group) => (

@@ -3,12 +3,25 @@ import { notFound } from "next/navigation";
 import PostCard from "../../../components/post-card";
 import { getAllPosts, groupPostsBySeriesType } from "../../../lib/posts";
 
+const parkingUpcomingTopics = [
+  {
+    title: "공영주차장 공매는 실제로 어떻게 받는가",
+    description:
+      "공고 확인부터 입찰, 현장 확인, 서류 이해까지 처음 진입하는 사람 기준으로 따로 정리할 예정입니다."
+  },
+  {
+    title: "입찰 전에 어떤 조건을 먼저 확인했어야 했는가",
+    description:
+      "무인화 가능 여부, 주변 재건축, 운영 조건처럼 낙찰 전에 놓치면 큰 변수였던 항목들을 되짚습니다."
+  }
+];
+
 const categoryMap = {
   parking: {
     label: "주차장",
     matches: ["주차장", "무인주차장"],
     description:
-      "공영주차장 낙찰부터 민원, 사고, 영업, 수익화까지. 직장인이 직접 운영하며 겪은 문제 해결과 수요 발굴, 사업 판단을 AI 인터뷰 형식으로 기록한 아카이브입니다."
+      "공영주차장 낙찰부터 민원, 사고, 영업, 수익화까지. 직장인이 직접 운영하며 겪은 문제 해결과 수요 발굴, 사업 판단을 AI 인터뷰 형식으로 기록한 아카이브입니다. 운영기와 별도로 공매·입찰 가이드도 이어서 보강할 예정입니다."
   },
   cafe: {
     label: "무인카페",
@@ -94,6 +107,24 @@ export default async function CategoryPage({ params }) {
           <p>아직 공개된 글이 없습니다. 곧 이 카테고리의 연재가 추가됩니다.</p>
         </section>
       )}
+
+      {slug === "parking" ? (
+        <section className="series-overview">
+          <div className="section-head">
+            <h2>이 카테고리에 곧 추가할 입문형 글</h2>
+            <p>운영 기록과 별개로, 처음 공매를 보는 사람을 위한 가이드형 글도 따로 쌓아갈 예정입니다.</p>
+          </div>
+          <div className="series-overview-grid">
+            {parkingUpcomingTopics.map((topic) => (
+              <article key={topic.title} className="series-overview-card upcoming-card">
+                <p className="eyebrow">준비 중</p>
+                <h3>{topic.title}</h3>
+                <p>{topic.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {posts.length ? (
         <section className="category-series-groups">

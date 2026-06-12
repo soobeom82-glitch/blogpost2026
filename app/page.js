@@ -4,6 +4,19 @@ import { getAllPosts, groupPostsBySeriesType } from "../lib/posts";
 
 export const dynamic = "force-dynamic";
 
+const upcomingGuideTopics = [
+  {
+    title: "공영주차장 공매는 실제로 어떻게 받는가",
+    description:
+      "입찰 공고를 어디서 보고, 어떤 조건을 읽고, 실제로 무엇을 확인해야 하는지부터 따로 정리할 예정입니다."
+  },
+  {
+    title: "입찰 전에 어떤 변수를 먼저 체크했어야 했는가",
+    description:
+      "재건축, 운영 주체, 무인화 가능 여부처럼 낙찰 전에 봤어야 했던 조건들을 운영 경험 기준으로 다시 정리합니다."
+  }
+];
+
 export default async function HomePage() {
   const posts = await getAllPosts();
   const [featuredPost, ...otherPosts] = posts;
@@ -102,6 +115,22 @@ export default async function HomePage() {
                   </li>
                 ))}
               </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="series-overview">
+        <div className="section-head">
+          <h2>곧 추가할 입문형 글</h2>
+          <p>운영기만으로는 부족한 부분이라, 공매를 처음 보는 사람용 가이드를 별도 축으로 보강합니다.</p>
+        </div>
+        <div className="series-overview-grid">
+          {upcomingGuideTopics.map((topic) => (
+            <article key={topic.title} className="series-overview-card upcoming-card">
+              <p className="eyebrow">준비 중</p>
+              <h3>{topic.title}</h3>
+              <p>{topic.description}</p>
             </article>
           ))}
         </div>

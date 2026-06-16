@@ -6,27 +6,14 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "주차장 공매, 낙찰, 운영 기록 | Operator's Log",
   description:
-    "주차장 공매로 공영주차장을 낙찰받은 뒤 실제 운영하면서 생긴 민원, 사고, 추가 수익화, 세무 판단까지 AI 인터뷰 형식으로 정리한 실전 운영 기록"
+    "주차장 공매로 공영주차장을 낙찰받기 전 무엇을 봐야 하는지, 낙찰 후 실제 운영에서 어떤 문제와 판단이 생겼는지 정리한 실전 기록"
 };
-
-const upcomingGuideTopics = [
-  {
-    title: "공영주차장 공매는 실제로 어떻게 받는가",
-    description:
-      "입찰 공고를 어디서 보고, 어떤 조건을 읽고, 실제로 무엇을 확인해야 하는지부터 따로 정리할 예정입니다."
-  },
-  {
-    title: "입찰 전에 어떤 변수를 먼저 체크했어야 했는가",
-    description:
-      "재건축, 운영 주체, 무인화 가능 여부처럼 낙찰 전에 봤어야 했던 조건들을 운영 경험 기준으로 다시 정리합니다."
-  }
-];
 
 const searchIntentLinks = [
   {
     label: "주차장 공매가 궁금하다면",
-    href: "/blog/parking-auction-origin-part-1",
-    description: "공매를 보다가 공영주차장을 낙찰받게 된 출발점부터 이어집니다."
+    href: "/blog/parking-auction-guide-part-1",
+    description: "공고 확인, 현장 판단, 입찰 순서를 먼저 정리한 입문 가이드부터 읽을 수 있습니다."
   },
   {
     label: "주차장으로 사업하는 흐름이 궁금하다면",
@@ -44,8 +31,12 @@ export default async function HomePage() {
   const posts = await getAllPosts();
   const [featuredPost, ...otherPosts] = posts;
   const latestPosts = otherPosts.slice(0, 4);
-  const firstPost = posts.at(-1) || null;
+  const firstGuidePost =
+    posts.find((post) => post.slug === "parking-auction-guide-part-1") || null;
+  const firstPost =
+    posts.find((post) => post.slug === "parking-auction-origin-part-1") || null;
   const highlightOrder = [
+    "parking-auction-guide-part-1",
     "parking-auction-origin-part-1",
     "parking-auction-lpr-error-part-6",
     "parking-auction-trash-fraud-part-8"
@@ -54,6 +45,7 @@ export default async function HomePage() {
     .map((slug) => posts.find((post) => post.slug === slug))
     .filter(Boolean);
   const parkingPosts = posts.filter((post) => post.category === "무인주차장");
+  const parkingGuidePosts = posts.filter((post) => post.category === "주차장 가이드");
   const groupedParkingPosts = groupPostsBySeriesType(parkingPosts);
 
   return (
@@ -61,19 +53,25 @@ export default async function HomePage() {
       <section className="intro-panel">
         <div className="intro-copy">
           <p className="eyebrow">처음 오신 분께</p>
-          <h2>주차장 공매로 낙찰받은 뒤 실제 운영에서 벌어진 일을 AI 인터뷰로 기록합니다.</h2>
+          <h2>주차장 공매를 어떻게 보고, 낙찰받고, 실제 운영했는지 순서대로 정리합니다.</h2>
           <p>
-            주차장 공매, 공영주차장 낙찰, 무인주차장 운영, 추가 수익 만들기,
-            민원과 사고 대응까지 직장인이 직접 겪은 흐름을 제가 인터뷰 형식으로
-            정리합니다. 잘 포장된 후기보다, 실제로 어떻게 버티고 풀었는지에
-            가까운 기록입니다.
+            공영주차장 공매 입문 가이드부터 실제 낙찰 이후 운영기, 추가 수익화,
+            민원과 사고 대응까지 직장인이 직접 겪은 흐름을 정리합니다. 검색으로는
+            조각나 있는 정보들을 `입찰 전 판단`, `실제 운영`, `문제 해결` 흐름으로
+            한곳에 모은 기록입니다.
           </p>
           <ul className="intro-points">
+            <li>공매 입찰 전에 먼저 봐야 할 가이드</li>
             <li>주차장 공매를 보고 낙찰까지 간 출발점</li>
             <li>낙찰 후 실제 운영에서 터진 문제를 어떻게 처리했는지</li>
             <li>주변 변화를 읽고 어떻게 추가 수익을 만들었는지</li>
           </ul>
           <div className="intro-actions">
+            {firstGuidePost ? (
+              <Link href={`/blog/${firstGuidePost.slug}`} className="text-button">
+                공매 가이드부터 보기
+              </Link>
+            ) : null}
             {firstPost ? (
               <Link href={`/blog/${firstPost.slug}`} className="text-button">
                 주차장 1편부터 보기
@@ -103,16 +101,16 @@ export default async function HomePage() {
           <div className="intro-card">
             <h3>이 사이트를 읽는 이유</h3>
             <p>
-              검색 결과에는 잘 안 남는 운영 감각, 즉 `이 상황에서 실제로 어떤 선택을 했는지`를
-              사건 단위로 읽을 수 있습니다.
+              검색 결과에는 잘 안 남는 운영 감각, 즉 `입찰 전에 뭘 봐야 하는지`와
+              `운영 중 어떤 선택을 했는지`를 실제 사례 기준으로 읽을 수 있습니다.
             </p>
           </div>
 
           <div className="intro-card">
             <h3>처음이라면</h3>
             <p>
-              주차장 시리즈를 순서대로 읽으면 가장 잘 들어옵니다. 앞편의 판단이 뒷편의 대응으로
-              이어지는 구조라서, 1편부터 읽을수록 맥락이 선명해집니다.
+              먼저 공매 가이드 2편을 읽고, 그다음 주차장 운영 연재 1편부터 보면 가장 잘 들어옵니다.
+              입찰 전 판단과 실제 운영기가 분리돼 있어서 흐름을 잡기 쉽습니다.
             </p>
           </div>
 
@@ -134,11 +132,11 @@ export default async function HomePage() {
 
       <section className="series-overview">
         <div className="section-head">
-          <h2>이 사이트의 글은 크게 세 갈래입니다</h2>
-          <p>처음 온 사람도 어디부터 읽을지 바로 고를 수 있게 나눴습니다.</p>
+          <h2>이 사이트는 이렇게 읽으면 됩니다</h2>
+          <p>가이드와 실전 운영기를 분리해서, 검색 의도에 따라 바로 들어갈 수 있게 정리했습니다.</p>
         </div>
         <div className="series-overview-grid">
-          {groupedParkingPosts.map((group) => (
+          {[...groupPostsBySeriesType(parkingGuidePosts), ...groupedParkingPosts].map((group) => (
             <article key={group.key} className="series-overview-card">
               <p className="eyebrow">{group.posts.length}편 공개</p>
               <h3>{group.label}</h3>
@@ -153,22 +151,6 @@ export default async function HomePage() {
                   </li>
                 ))}
               </ul>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="series-overview">
-        <div className="section-head">
-          <h2>곧 추가할 입문형 글</h2>
-          <p>운영기만으로는 부족한 부분이라, 공매를 처음 보는 사람용 가이드를 별도 축으로 보강합니다.</p>
-        </div>
-        <div className="series-overview-grid">
-          {upcomingGuideTopics.map((topic) => (
-            <article key={topic.title} className="series-overview-card upcoming-card">
-              <p className="eyebrow">준비 중</p>
-              <h3>{topic.title}</h3>
-              <p>{topic.description}</p>
             </article>
           ))}
         </div>

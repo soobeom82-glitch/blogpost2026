@@ -2,7 +2,7 @@ const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
 
 export const metadata = {
   title: "문의 | Operator's Log",
-  description: "Operator's Log 문의 페이지"
+  description: "Operator's Log 문의, 정정 요청, 제휴 문의 안내 페이지"
 };
 
 export default function ContactPage() {
@@ -12,8 +12,8 @@ export default function ContactPage() {
         <p className="eyebrow">Contact</p>
         <h1>문의</h1>
         <p className="info-page-summary">
-          사이트 운영, 콘텐츠 오류, 협업 제안, 광고 문의는 아래 방법으로
-          전달할 수 있습니다.
+          콘텐츠 오류 제보, 사실관계 정정 요청, 댓글 관련 문의, 협업·광고 문의는
+          아래 방법으로 전달할 수 있습니다.
         </p>
       </div>
 
@@ -36,11 +36,22 @@ export default function ContactPage() {
         </section>
 
         <section>
+          <h2>어떤 문의를 받나요?</h2>
+          <ul className="info-list">
+            <li>콘텐츠 내 사실관계 오류 제보</li>
+            <li>개인정보, 댓글, 삭제 관련 요청</li>
+            <li>광고·협업·인터뷰 제안</li>
+            <li>사이트 기능 이상 또는 링크 오류 제보</li>
+          </ul>
+        </section>
+
+        <section>
           <h2>안내</h2>
           <ul className="info-list">
             <li>콘텐츠 내 사실관계 오류 제보는 확인 후 반영합니다.</li>
             <li>광고·제휴 문의는 사전 검토 후 응답할 수 있습니다.</li>
             <li>댓글 관련 신고나 삭제 요청도 같은 경로로 받습니다.</li>
+            <li>회신이 필요한 문의는 연락 가능한 정보를 함께 남겨야 처리할 수 있습니다.</li>
           </ul>
         </section>
       </div>

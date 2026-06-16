@@ -37,8 +37,24 @@ import ParkingAuctionCommercialDemandPart12, {
 import ParkingAuctionEndingPart13, {
   metadata as parkingAuctionEndingPart13Metadata
 } from "./parking-auction-ending-part-13.mdx";
+import ParkingAuctionGuidePart1, {
+  metadata as parkingAuctionGuidePart1Metadata
+} from "./parking-auction-guide-part-1.mdx";
+import ParkingAuctionGuidePart2, {
+  metadata as parkingAuctionGuidePart2Metadata
+} from "./parking-auction-guide-part-2.mdx";
 
 export const allPosts = [
+  {
+    slug: "parking-auction-guide-part-1",
+    ...parkingAuctionGuidePart1Metadata,
+    Content: ParkingAuctionGuidePart1
+  },
+  {
+    slug: "parking-auction-guide-part-2",
+    ...parkingAuctionGuidePart2Metadata,
+    Content: ParkingAuctionGuidePart2
+  },
   {
     slug: "parking-auction-origin-part-1",
     ...parkingAuctionOriginPart1Metadata,

@@ -11,19 +11,16 @@ export const metadata = {
 
 const searchIntentLinks = [
   {
-    label: "주차장 공매가 궁금하다면",
-    href: "/blog/parking-auction-guide-part-1",
-    description: "공고 확인, 현장 판단, 입찰 순서를 먼저 정리한 입문 가이드부터 읽을 수 있습니다."
+    label: "공매 가이드부터 보기",
+    href: "/blog/parking-auction-guide-part-1"
   },
   {
-    label: "주차장으로 사업하는 흐름이 궁금하다면",
-    href: "/category/parking",
-    description: "낙찰 이후 운영, 수익, 민원, 사고 대응까지 한 줄로 따라갈 수 있습니다."
+    label: "실전 운영기 1편부터 보기",
+    href: "/blog/parking-auction-origin-part-1"
   },
   {
-    label: "낙찰 후 실제 운영이 궁금하다면",
-    href: "/blog/parking-auction-reality-part-2",
-    description: "행정, 인수인계, 무인화 한계처럼 시작 직후의 현실부터 볼 수 있습니다."
+    label: "주차장 글 전체 보기",
+    href: "/category/parking"
   }
 ];
 
@@ -35,15 +32,6 @@ export default async function HomePage() {
     posts.find((post) => post.slug === "parking-auction-guide-part-1") || null;
   const firstPost =
     posts.find((post) => post.slug === "parking-auction-origin-part-1") || null;
-  const highlightOrder = [
-    "parking-auction-guide-part-1",
-    "parking-auction-origin-part-1",
-    "parking-auction-lpr-error-part-6",
-    "parking-auction-trash-fraud-part-8"
-  ];
-  const highlightPosts = highlightOrder
-    .map((slug) => posts.find((post) => post.slug === slug))
-    .filter(Boolean);
   const parkingPosts = posts.filter((post) => post.category === "무인주차장");
   const parkingGuidePosts = posts.filter((post) => post.category === "주차장 가이드");
   const groupedParkingPosts = groupPostsBySeriesType(parkingPosts);
@@ -54,18 +42,7 @@ export default async function HomePage() {
         <div className="intro-copy">
           <p className="eyebrow">처음 오신 분께</p>
           <h2>주차장 공매를 어떻게 보고, 낙찰받고, 실제 운영했는지 순서대로 정리합니다.</h2>
-          <p>
-            공영주차장 공매 입문 가이드부터 실제 낙찰 이후 운영기, 추가 수익화,
-            민원과 사고 대응까지 직장인이 직접 겪은 흐름을 정리합니다. 검색으로는
-            조각나 있는 정보들을 `입찰 전 판단`, `실제 운영`, `문제 해결` 흐름으로
-            한곳에 모은 기록입니다.
-          </p>
-          <ul className="intro-points">
-            <li>공매 입찰 전에 먼저 봐야 할 가이드</li>
-            <li>주차장 공매를 보고 낙찰까지 간 출발점</li>
-            <li>낙찰 후 실제 운영에서 터진 문제를 어떻게 처리했는지</li>
-            <li>주변 변화를 읽고 어떻게 추가 수익을 만들었는지</li>
-          </ul>
+          <p>공매 입문 가이드와 실제 운영 기록을 나눠서 정리한 아카이브입니다.</p>
           <div className="intro-actions">
             {firstGuidePost ? (
               <Link href={`/blog/${firstGuidePost.slug}`} className="text-button">
@@ -85,47 +62,22 @@ export default async function HomePage() {
 
         <div className="intro-aside">
           <div className="intro-card">
-            <h3>이런 검색으로 들어오셨다면</h3>
+            <h3>바로 가기</h3>
             <ul className="intro-link-list">
               {searchIntentLinks.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href}>
-                    <strong>{item.label}</strong>
-                    <span>{item.description}</span>
-                  </Link>
+                  <Link href={item.href}>{item.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="intro-card">
-            <h3>이 사이트를 읽는 이유</h3>
+            <h3>구성</h3>
             <p>
-              검색 결과에는 잘 안 남는 운영 감각, 즉 `입찰 전에 뭘 봐야 하는지`와
-              `운영 중 어떤 선택을 했는지`를 실제 사례 기준으로 읽을 수 있습니다.
+              입찰 전 판단은 가이드에서, 실제 민원·수익·사고 대응은 운영기에서
+              볼 수 있습니다.
             </p>
-          </div>
-
-          <div className="intro-card">
-            <h3>처음이라면</h3>
-            <p>
-              먼저 공매 가이드 2편을 읽고, 그다음 주차장 운영 연재 1편부터 보면 가장 잘 들어옵니다.
-              입찰 전 판단과 실제 운영기가 분리돼 있어서 흐름을 잡기 쉽습니다.
-            </p>
-          </div>
-
-          <div className="intro-card">
-            <h3>대표 사건 3개</h3>
-            <ul className="intro-link-list">
-              {highlightPosts.map((post) => (
-                <li key={post.slug}>
-                  <Link href={`/blog/${post.slug}`}>
-                    <strong>{post.title}</strong>
-                    <span>{post.summary}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>

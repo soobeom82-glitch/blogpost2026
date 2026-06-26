@@ -43,6 +43,9 @@ import ParkingAuctionGuidePart1, {
 import ParkingAuctionGuidePart2, {
   metadata as parkingAuctionGuidePart2Metadata
 } from "./parking-auction-guide-part-2.mdx";
+import ParkingAuctionGuidePart3, {
+  metadata as parkingAuctionGuidePart3Metadata
+} from "./parking-auction-guide-part-3.mdx";
 
 export const allPosts = [
   {
@@ -54,6 +57,11 @@ export const allPosts = [
     slug: "parking-auction-guide-part-2",
     ...parkingAuctionGuidePart2Metadata,
     Content: ParkingAuctionGuidePart2
+  },
+  {
+    slug: "parking-auction-guide-part-3",
+    ...parkingAuctionGuidePart3Metadata,
+    Content: ParkingAuctionGuidePart3
   },
   {
     slug: "parking-auction-origin-part-1",

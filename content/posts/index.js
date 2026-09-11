@@ -52,8 +52,16 @@ import ParkingAuctionGuidePart4, {
 import SharedKitchenVatRefundPart1, {
   metadata as sharedKitchenVatRefundPart1Metadata
 } from "./shared-kitchen-vat-refund-part-1.mdx";
+import TaxInvoiceCrosscheckAutomation, {
+  metadata as taxInvoiceCrosscheckAutomationMetadata
+} from "./tax-invoice-crosscheck-automation.mdx";
 
 export const allPosts = [
+  {
+    slug: "tax-invoice-crosscheck-automation",
+    ...taxInvoiceCrosscheckAutomationMetadata,
+    Content: TaxInvoiceCrosscheckAutomation
+  },
   {
     slug: "shared-kitchen-vat-refund-part-1",
     ...sharedKitchenVatRefundPart1Metadata,

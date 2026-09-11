@@ -3,7 +3,7 @@ import CommentsSection from "../../../components/comments-section";
 import PostEngagement from "../../../components/post-engagement";
 import { notFound } from "next/navigation";
 import { getPostComments } from "../../../lib/blog-store";
-import { getAdjacentPosts, getAllPosts, getPostBySlug } from "../../../lib/posts";
+import { getAdjacentPosts, getAllPosts, getPostBySlug, getRelatedPosts } from "../../../lib/posts";
 
 export const dynamic = "force-dynamic";
 
@@ -63,7 +63,8 @@ export default async function BlogPostPage({ params }) {
   const comments = await getPostComments(slug);
   const { previousPost, nextPost } = await getAdjacentPosts(slug);
   const allPosts = await getAllPosts();
-  const seriesPosts = allPosts.filter((item) => item.category === post.category);
+  const relatedPosts = await getRelatedPosts(slug);
+  const seriesPosts = allPosts.filter((item) => item.postTrack === post.postTrack);
   const firstPost = seriesPosts.at(-1) || null;
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
@@ -79,7 +80,8 @@ export default async function BlogPostPage({ params }) {
     dateModified: post.publishedAt,
     mainEntityOfPage: `${siteUrl}/blog/${slug}`,
     image: post.image ? [`${siteUrl}${post.image}`] : undefined,
-    articleSection: post.category,
+    articleSection: post.primaryCategoryLabel,
+    keywords: post.topicLabels,
     author: {
       "@type": "Organization",
       name: "Operator's Log"
@@ -105,7 +107,8 @@ export default async function BlogPostPage({ params }) {
 
       <header className="post-header">
         <p className="post-meta">
-          <span>{post.category}</span>
+          <span>{post.primaryCategoryLabel}</span>
+          {post.topicLabels.map((topic) => <span key={topic}>{topic}</span>)}
           <span>{post.publishedAt}</span>
         </p>
         <h1>{post.title}</h1>
@@ -133,6 +136,25 @@ export default async function BlogPostPage({ params }) {
         initialLikeCount={post.likeCount}
         initialCommentCount={post.commentCount}
       />
+
+      {relatedPosts.length ? (
+        <section className="related-posts">
+          <div className="section-head">
+            <h2>관련 기록</h2>
+            <p>같은 사업 또는 운영 주제가 겹치는 글입니다.</p>
+          </div>
+          <ul className="latest-list">
+            {relatedPosts.map((item) => (
+              <li key={item.slug} className="latest-item">
+                <Link href={`/blog/${item.slug}`}>
+                  <span className="latest-category">{item.primaryCategoryLabel} · {item.topicLabels.join(" · ")}</span>
+                  <strong>{item.title}</strong>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {previousPost || nextPost ? (
         <nav className="post-pagination" aria-label="연재 이동">

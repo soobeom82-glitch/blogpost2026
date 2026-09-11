@@ -9,12 +9,13 @@ export default function PostCard({ post }) {
           src={post.image || "/images/site-representative.jpg"}
           alt={post.imageAlt || post.title}
         />
-        <span className="post-visual-kicker">{post.category}</span>
+        <span className="post-visual-kicker">{post.primaryCategoryLabel || post.category}</span>
       </div>
 
       <div className="post-card-top">
         <p className="post-meta">
-          <span>{post.category}</span>
+          <span>{post.primaryCategoryLabel || post.category}</span>
+          {post.topicLabels?.length ? <span>{post.topicLabels.join(" · ")}</span> : null}
           <span>{post.publishedAt}</span>
         </p>
       </div>

@@ -1,176 +1,97 @@
 import Link from "next/link";
 import PostCard from "../components/post-card";
-import { getAllPosts, groupPostsBySeriesType } from "../lib/posts";
+import { getAllPosts, topicMeta } from "../lib/posts";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
-  title: "주차장 공매, 낙찰, 운영 기록 | Operator's Log",
-  description:
-    "주차장 공매로 공영주차장을 낙찰받기 전 무엇을 봐야 하는지, 낙찰 후 실제 운영에서 어떤 문제와 판단이 생겼는지 정리한 실전 기록"
+  title: "실전 사업 운영 인터뷰 모음 | Operator's Log",
+  description: "주차장, 무인카페, 공유주방을 실제 운영하며 겪은 공매, 민원, 사고, 세무, 계약, 시설 문제와 판단을 기록합니다."
 };
 
-const searchIntentLinks = [
-  {
-    label: "공매 가이드부터 보기",
-    href: "/blog/parking-auction-guide-part-1"
-  },
-  {
-    label: "실전 운영기 1편부터 보기",
-    href: "/blog/parking-auction-origin-part-1"
-  },
-  {
-    label: "주차장 글 전체 보기",
-    href: "/category/parking"
-  }
+const businessArchives = [
+  { slug: "parking", label: "주차장", description: "공영주차장 공매, 낙찰, 무인 운영, 민원과 추가 수익화", href: "/category/parking" },
+  { slug: "cafe", label: "무인카페", description: "무인 운영, 고객 문제, 시설, 상품과 운영 자동화", href: "/category/cafe" },
+  { slug: "shared-kitchen", label: "공유주방", description: "공유주방 구축, 입점 운영, HACCP, 시설·공사, 세무·계약", href: "/category/shared-kitchen" }
 ];
+
+const operationTopics = ["issue", "tax", "legal", "automation", "retrospective"];
 
 export default async function HomePage() {
   const posts = await getAllPosts();
-  const [featuredPost, ...otherPosts] = posts;
-  const latestPosts = otherPosts.slice(0, 4);
-  const firstGuidePost =
-    posts.find((post) => post.slug === "parking-auction-guide-part-1") || null;
-  const firstPost =
-    posts.find((post) => post.slug === "parking-auction-origin-part-1") || null;
-  const parkingPosts = posts.filter((post) => post.category === "무인주차장");
-  const parkingGuidePosts = posts.filter((post) => post.category === "주차장 가이드");
-  const groupedParkingPosts = groupPostsBySeriesType(parkingPosts);
+  const latestPosts = posts.slice(0, 6);
+  const firstGuidePost = posts.find((post) => post.slug === "parking-auction-guide-part-1");
+  const topicPosts = operationTopics
+    .map((topic) => ({ topic, post: posts.find((post) => post.topics.includes(topic)) }))
+    .filter(({ post }) => post);
 
   return (
     <div className="home-grid">
-      <section className="intro-panel">
+      <section className="intro-panel intro-panel-wide">
         <div className="intro-copy">
-          <p className="eyebrow">처음 오신 분께</p>
-          <h2>주차장 공매를 어떻게 보고, 낙찰받고, 실제 운영했는지 순서대로 정리합니다.</h2>
-          <p>공매 입문 가이드와 실제 운영 기록을 나눠서 정리한 아카이브입니다.</p>
+          <p className="eyebrow">Interview-based operating archive</p>
+          <h2>사업을 실제로 운영하면서 어떤 판단을 했는지 기록합니다.</h2>
+          <p>주차장, 무인카페, 공유주방에서 실제 돈이 들어간 판단과 민원, 사고, 세무, 계약, 시설 문제를 AI 인터뷰로 복원합니다.</p>
           <div className="intro-actions">
-            {firstGuidePost ? (
-              <Link href={`/blog/${firstGuidePost.slug}`} className="text-button">
-                공매 가이드부터 보기
-              </Link>
-            ) : null}
-            {firstPost ? (
-              <Link href={`/blog/${firstPost.slug}`} className="text-button">
-                주차장 1편부터 보기
-              </Link>
-            ) : null}
-            <Link href="/about" className="text-button">
-              운영자와 인터뷰 방식 보기
-            </Link>
-          </div>
-        </div>
-
-        <div className="intro-aside">
-          <div className="intro-card">
-            <h3>바로 가기</h3>
-            <ul className="intro-link-list">
-              {searchIntentLinks.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="intro-card">
-            <h3>구성</h3>
-            <p>
-              입찰 전 판단은 가이드에서, 실제 민원·수익·사고 대응은 운영기에서
-              볼 수 있습니다.
-            </p>
+            <Link href="/about" className="text-button">이 사이트를 읽는 방법</Link>
+            <Link href="/operations" className="text-button">운영노트 보기</Link>
           </div>
         </div>
       </section>
 
-      <section className="series-overview">
+      <section className="business-archive-section">
         <div className="section-head">
-          <h2>이 사이트는 이렇게 읽으면 됩니다</h2>
-          <p>가이드와 실전 운영기를 분리해서, 검색 의도에 따라 바로 들어갈 수 있게 정리했습니다.</p>
+          <h2>사업별 기록</h2>
+          <p>사업마다 다른 현실을, 같은 기준으로 쌓아갑니다.</p>
         </div>
-        <div className="series-overview-grid">
-          {[...groupPostsBySeriesType(parkingGuidePosts), ...groupedParkingPosts].map((group) => (
-            <article key={group.key} className="series-overview-card">
-              <p className="eyebrow">{group.posts.length}편 공개</p>
-              <h3>{group.label}</h3>
-              <p>{group.description}</p>
-              <Link href="/category/parking" className="text-button">
-                {group.label} 글 모아보기
+        <div className="business-archive-grid">
+          {businessArchives.map((archive) => {
+            const latest = posts.find((post) => post.primaryCategory === archive.slug);
+            return (
+              <Link key={archive.slug} href={archive.href} className="business-archive-card">
+                <p className="eyebrow">{latest ? "최근 글 공개" : "기록 준비 중"}</p>
+                <h3>{archive.label}</h3>
+                <p>{archive.description}</p>
+                <span className="business-archive-latest">{latest ? latest.title : `${archive.label} 기록 보기`}</span>
               </Link>
-              <ul className="series-overview-list">
-                {group.posts.slice(0, 2).map((post) => (
-                  <li key={post.slug}>
-                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                  </li>
-                ))}
-              </ul>
-            </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="topic-explorer">
+        <div className="section-head">
+          <h2>운영하면서 배운 것</h2>
+          <Link href="/operations" className="text-button">운영노트 전체 보기</Link>
+        </div>
+        <div className="topic-explorer-grid">
+          {topicPosts.map(({ topic, post }) => (
+            <Link key={topic} href={`/operations?topic=${topic}`} className="topic-explorer-card">
+              <span>{topicMeta[topic].label}</span>
+              <strong>{post.title}</strong>
+              <small>{post.primaryCategoryLabel}</small>
+            </Link>
           ))}
         </div>
       </section>
 
-      <section className="lead-grid">
-        <Link
-          href={`/blog/${featuredPost.slug}`}
-          className="lead-card lead-card-link"
-        >
-          <div className="lead-visual">
-            <img
-              className="lead-visual-image"
-              src={featuredPost.image || "/images/site-representative.jpg"}
-              alt={featuredPost.imageAlt || featuredPost.title}
-            />
-            <span className="lead-badge">{featuredPost.category}</span>
+      {firstGuidePost ? (
+        <section className="guide-callout">
+          <div>
+            <p className="eyebrow">Parking auction guide</p>
+            <h2>주차장 공매를 처음 본다면</h2>
+            <p>공고를 찾는 법부터 입찰 전 체크포인트까지 순서대로 정리했습니다.</p>
           </div>
-
-          <div className="lead-content">
-            <p className="eyebrow">대표 연재</p>
-            <h2>{featuredPost.title}</h2>
-            <p className="lead-summary">{featuredPost.summary}</p>
-
-            <div className="lead-footer">
-              <div className="metric-row">
-                <span>{featuredPost.publishedAt}</span>
-                <span>조회 {featuredPost.views}</span>
-                <span>좋아요 {featuredPost.likeCount}</span>
-                <span>댓글 {featuredPost.commentCount}</span>
-              </div>
-            </div>
-          </div>
-        </Link>
-
-        <aside className="latest-panel">
-          <div className="section-head">
-            <h2>최신 기사</h2>
-            <p>최근 공개된 연재</p>
-          </div>
-
-          <ul className="latest-list">
-            {posts.map((post) => (
-              <li key={post.slug} className="latest-item">
-                <a href={`/blog/${post.slug}`}>
-                  <span className="latest-category">{post.category}</span>
-                  <strong>{post.title}</strong>
-                  <span className="latest-meta">
-                    {post.publishedAt} · 조회 {post.views} · 좋아요{" "}
-                    {post.likeCount} · 댓글{" "}
-                    {post.commentCount}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </aside>
-      </section>
+          <Link href={`/blog/${firstGuidePost.slug}`} className="solid-link">공매 가이드 시작하기</Link>
+        </section>
+      ) : null}
 
       <section className="post-section">
         <div className="section-head">
-          <h2>최신 스토리</h2>
+          <h2>최신 글</h2>
+          <p>사업 카테고리 구분 없이 최신순으로 봅니다.</p>
         </div>
-
         <div className="post-list">
-          {latestPosts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
+          {latestPosts.map((post) => <PostCard key={post.slug} post={post} />)}
         </div>
       </section>
     </div>

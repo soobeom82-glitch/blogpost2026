@@ -36,6 +36,14 @@ export default async function sitemap() {
       lastModified: new Date()
     },
     {
+      url: `${baseUrl}/category/shared-kitchen`,
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/operations`,
+      lastModified: new Date()
+    },
+    {
       url: `${baseUrl}/feed.xml`,
       lastModified: new Date()
     },

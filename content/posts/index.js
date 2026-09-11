@@ -49,8 +49,16 @@ import ParkingAuctionGuidePart3, {
 import ParkingAuctionGuidePart4, {
   metadata as parkingAuctionGuidePart4Metadata
 } from "./parking-auction-guide-part-4.mdx";
+import SharedKitchenVatRefundPart1, {
+  metadata as sharedKitchenVatRefundPart1Metadata
+} from "./shared-kitchen-vat-refund-part-1.mdx";
 
 export const allPosts = [
+  {
+    slug: "shared-kitchen-vat-refund-part-1",
+    ...sharedKitchenVatRefundPart1Metadata,
+    Content: SharedKitchenVatRefundPart1
+  },
   {
     slug: "parking-auction-guide-part-4",
     ...parkingAuctionGuidePart4Metadata,

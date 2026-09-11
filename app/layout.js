@@ -12,9 +12,9 @@ const adsenseClient =
   process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() || undefined;
 
 export const metadata = {
-  title: "Operator's Log",
+  title: "Operator's Log | 주차장·무인카페·공유주방 실전 운영 기록",
   description:
-    "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+    "주차장, 무인카페, 공유주방을 실제 운영하며 겪은 공매, 민원, 세무, 계약, 시설 문제와 의사결정을 AI 인터뷰 기반으로 기록하는 실전 사업 운영 아카이브.",
   keywords: [
     "주차장 공매",
     "공영주차장 낙찰",
@@ -23,7 +23,10 @@ export const metadata = {
     "주차장 민원 대응",
     "주차장 수익화",
     "실전 사업 운영",
-    "무인카페 운영"
+    "무인카페 운영",
+    "공유주방 운영",
+    "사업자 세무",
+    "운영 자동화"
   ],
   metadataBase: new URL(siteUrl),
   alternates: {
@@ -43,7 +46,7 @@ export const metadata = {
   openGraph: {
     title: "Operator's Log",
     description:
-      "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+      "주차장, 무인카페, 공유주방을 실제 운영하며 겪은 판단과 시행착오를 AI 인터뷰 기반으로 기록하는 실전 사업 운영 아카이브.",
     url: siteUrl,
     siteName: "Operator's Log",
     images: ["/images/site-representative.jpg"]
@@ -52,14 +55,16 @@ export const metadata = {
     card: "summary_large_image",
     title: "Operator's Log",
     description:
-      "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+      "주차장, 무인카페, 공유주방을 실제 운영하며 겪은 판단과 시행착오를 AI 인터뷰 기반으로 기록하는 실전 사업 운영 아카이브.",
     images: ["/images/site-representative.jpg"]
   }
 };
 
 const categories = [
   { label: "주차장", href: "/category/parking" },
-  { label: "무인카페", href: "/category/cafe" }
+  { label: "무인카페", href: "/category/cafe" },
+  { label: "공유주방", href: "/category/shared-kitchen" },
+  { label: "운영노트", href: "/operations" }
 ];
 
 export default function RootLayout({ children }) {
@@ -69,10 +74,10 @@ export default function RootLayout({ children }) {
     name: "Operator's Log",
     url: siteUrl,
     description:
-      "공영주차장 공매, 주차장 낙찰, 무인주차장 운영, 추가 수익 만들기, 민원과 사고 대응까지 직장인이 실제로 겪은 과정을 AI 인터뷰 형식으로 기록한 실전 사업 운영 아카이브",
+      "주차장, 무인카페, 공유주방을 실제 운영하며 겪은 판단과 시행착오를 AI 인터뷰 기반으로 기록하는 실전 사업 운영 아카이브.",
     inLanguage: "ko-KR",
     keywords:
-      "주차장 공매, 공영주차장 낙찰, 주차장 사업, 무인주차장 운영, 주차장 수익화, 주차장 민원 대응"
+      "주차장 공매, 공영주차장 낙찰, 무인카페 운영, 공유주방 운영, 사업자 세무, 계약, 운영 자동화"
   };
 
   return (
@@ -117,10 +122,10 @@ export default function RootLayout({ children }) {
             </div>
 
             <p className="site-intro">
-              공영주차장 공매로 주차장을 낙찰받아 실제 운영하면서 겪은 민원,
-              사고, 추가 수익화, 세무 판단과 무인카페 운영 경험을, AI가 질문하고
-              운영자가 답하는 방식으로 기록합니다. 잘 포장된 성공담보다 실제
-              현장에서 어떤 선택을 했는지 남기는 인터뷰 아카이브입니다.
+              주차장, 무인카페, 공유주방을 실제로 운영하면서 겪은 공매, 민원, 사고,
+              세무, 계약, 시설 문제와 그때의 판단을 기록합니다. AI가 질문하고
+              운영자가 답한 실제 경험을 바탕으로, 잘 포장된 성공담보다 현장에서
+              무엇을 판단했고 무엇을 놓쳤는지를 남깁니다.
             </p>
           </header>
 
@@ -130,6 +135,8 @@ export default function RootLayout({ children }) {
             <nav className="footer-nav" aria-label="사이트 정보">
               <a href="/category/parking">주차장</a>
               <a href="/category/cafe">무인카페</a>
+              <a href="/category/shared-kitchen">공유주방</a>
+              <a href="/operations">운영노트</a>
               <a href="/about">소개</a>
               <a href="/contact">문의</a>
               <a href="/privacy">개인정보처리방침</a>

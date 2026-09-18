@@ -15,12 +15,6 @@ const categoryMap = {
     description:
       "무인카페를 실제로 운영하며 겪은 고객 문제, 시설, 상품, 공간 관리와 운영 자동화 경험을 기록합니다.",
     browseLabel: "무인 운영 기록"
-  },
-  "shared-kitchen": {
-    label: "공유주방",
-    description:
-      "공유주방을 구축하고 입점업체를 운영하면서 겪은 시설 공사, HACCP, 임대·계약, 세무와 운영 문제를 기록합니다.",
-    browseLabel: "공유주방 운영 기록"
   }
 };
 

@@ -5,13 +5,12 @@ import { getAllPosts, topicMeta } from "../lib/posts";
 export const dynamic = "force-dynamic";
 export const metadata = {
   title: "실전 사업 운영 인터뷰 모음 | Operator's Log",
-  description: "주차장, 무인카페, 공유주방을 실제 운영하며 겪은 공매, 민원, 사고, 세무, 계약, 시설 문제와 판단을 기록합니다."
+  description: "실제 사업을 운영하며 겪은 공매, 민원, 사고, 세무, 계약, 시설 문제와 판단을 기록합니다."
 };
 
 const businessArchives = [
   { slug: "parking", label: "주차장", description: "공영주차장 공매, 낙찰, 무인 운영, 민원과 추가 수익화", href: "/category/parking" },
-  { slug: "cafe", label: "무인카페", description: "무인 운영, 고객 문제, 시설, 상품과 운영 자동화", href: "/category/cafe" },
-  { slug: "shared-kitchen", label: "공유주방", description: "공유주방 구축, 입점 운영, HACCP, 시설·공사, 세무·계약", href: "/category/shared-kitchen" }
+  { slug: "cafe", label: "무인카페", description: "무인 운영, 고객 문제, 시설, 상품과 운영 자동화", href: "/category/cafe" }
 ];
 
 const operationTopics = ["issue", "tax", "legal", "automation", "retrospective"];
@@ -30,7 +29,7 @@ export default async function HomePage() {
         <div className="intro-copy">
           <p className="eyebrow">Interview-based operating archive</p>
           <h2>사업을 실제로 운영하면서 어떤 판단을 했는지 기록합니다.</h2>
-          <p>주차장, 무인카페, 공유주방에서 실제 돈이 들어간 판단과 민원, 사고, 세무, 계약, 시설 문제를 AI 인터뷰로 복원합니다.</p>
+          <p>실제 사업에서 돈이 들어간 판단과 민원, 사고, 세무, 계약, 시설 문제를 AI 인터뷰로 복원합니다.</p>
           <div className="intro-actions">
             <Link href="/about" className="text-button">이 사이트를 읽는 방법</Link>
             <Link href="/operations" className="text-button">운영노트 보기</Link>

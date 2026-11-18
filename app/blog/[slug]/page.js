@@ -1,3 +1,4 @@
+import StructuredData from "../../../components/structured-data";
 import Link from "next/link";
 import CommentsSection from "../../../components/comments-section";
 import PostEngagement from "../../../components/post-engagement";
@@ -60,12 +61,12 @@ export default async function BlogPostPage({ params }) {
   }
 
   const Content = post.Content;
-  const comments = await getPostComments(slug);
-  const { previousPost, nextPost } = await getAdjacentPosts(slug);
-  const allPosts = await getAllPosts();
+  let comments = [];
+  let commentsUnavailable = false;
+  try { comments = await getPostComments(slug); }
+  catch { commentsUnavailable = true; }
+  const { previousPost, nextPost, firstPost } = await getAdjacentPosts(slug);
   const relatedPosts = await getRelatedPosts(slug);
-  const seriesPosts = allPosts.filter((item) => item.postTrack === post.postTrack);
-  const firstPost = seriesPosts.at(-1) || null;
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -95,12 +96,7 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <article className="post-page">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleSchema)
-        }}
-      />
+      <StructuredData value={articleSchema} />
       <a className="back-link" href="/">
         ← 목록으로
       </a>
@@ -130,6 +126,8 @@ export default async function BlogPostPage({ params }) {
       </div>
 
       <PostEngagement
+        key={slug}
+        statsUnavailable={post.statsUnavailable}
         slug={slug}
         title={post.title}
         initialViews={post.views}
@@ -193,6 +191,8 @@ export default async function BlogPostPage({ params }) {
       </div>
 
       <CommentsSection
+        key={slug}
+        initialUnavailable={commentsUnavailable}
         slug={slug}
         initialComments={comments}
         initialCommentCount={post.commentCount}

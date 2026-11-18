@@ -1,6 +1,8 @@
+import { canonical } from "../../lib/site";
 import Link from "next/link";
 
 export const metadata = {
+  alternates: canonical("/about"),
   title: "소개 | Operator's Log",
   description:
     "여러 실제 사업 운영 경험을 AI 인터뷰 기반으로 기록하는 Operator's Log 소개 페이지"

@@ -71,7 +71,7 @@ function CommentForm({
         },
         body: JSON.stringify({
           nickname: nickname.trim(),
-          password: password.trim(),
+          password,
           content: content.trim(),
           parentId
         })
@@ -99,11 +99,18 @@ function CommentForm({
     <form className="comment-form" onSubmit={handleSubmit}>
       <div className="comment-form-grid">
         <input
+          aria-label="닉네임"
+          maxLength={50}
+          required
           placeholder="닉네임"
           value={nickname}
           onChange={(event) => setNickname(event.target.value)}
         />
         <input
+          aria-label="댓글 비밀번호"
+          minLength={4}
+          maxLength={128}
+          required
           placeholder="비밀번호"
           type="password"
           value={password}
@@ -111,6 +118,9 @@ function CommentForm({
         />
       </div>
       <textarea
+        aria-label="댓글 내용"
+        maxLength={5000}
+        required
         placeholder="댓글을 남겨 주세요."
         rows={parentId ? 3 : 5}
         value={content}
@@ -158,7 +168,7 @@ function CommentManageForm({
 
     setSubmitting(true);
     const nextError = await onSubmit({
-      password: password.trim(),
+      password,
       content: content.trim()
     });
     setSubmitting(false);
@@ -177,11 +187,17 @@ function CommentManageForm({
       {mode === "edit" ? (
         <textarea
           rows={3}
+          aria-label="수정할 댓글 내용"
+          maxLength={5000}
+          required
           value={content}
           onChange={(event) => setContent(event.target.value)}
         />
       ) : null}
       <input
+        aria-label={mode === "admin-delete" ? "운영자 비밀번호" : "댓글 비밀번호"}
+        maxLength={mode === "admin-delete" ? 256 : 128}
+        required
         placeholder={mode === "admin-delete" ? "운영자 비밀번호" : "비밀번호"}
         type="password"
         value={password}
@@ -433,11 +449,15 @@ export default function CommentsSection({
   slug,
   initialComments,
   initialCommentCount,
+  initialUnavailable = false,
   canAdminDelete = false
 }) {
   const [comments, setComments] = useState(initialComments);
   const [commentCount, setCommentCount] = useState(initialCommentCount);
+  const [unavailable, setUnavailable] = useState(initialUnavailable);
+  const [retry, setRetry] = useState(0);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: retry deliberately re-runs the request after the user asks to retry.
   useEffect(() => {
     let isMounted = true;
 
@@ -447,9 +467,7 @@ export default function CommentsSection({
           cache: "no-store"
         });
 
-        if (!response.ok) {
-          return;
-        }
+        if (!response.ok) throw new Error("댓글 조회 실패");
 
         const payload = await response.json();
 
@@ -457,10 +475,11 @@ export default function CommentsSection({
           return;
         }
 
+        setUnavailable(false);
         setComments(payload.comments);
         setCommentCount(payload.stats.commentCount);
       } catch {
-        // Keep the server-rendered state if live sync fails.
+        if (isMounted) setUnavailable(true);
       }
     }
 
@@ -469,9 +488,10 @@ export default function CommentsSection({
     return () => {
       isMounted = false;
     };
-  }, [slug]);
+  }, [slug, retry]);
 
   function handleSubmitted(payload) {
+    setUnavailable(false);
     applyPayload(slug, payload, setComments, setCommentCount);
   }
 
@@ -479,9 +499,10 @@ export default function CommentsSection({
     <section className="comments-section">
       <div className="section-head">
         <h2>댓글</h2>
-        <p>{commentCount}개</p>
+        <p>{unavailable ? "조회 불가" : `${commentCount}개`}</p>
       </div>
 
+      {unavailable ? <p role="status" className="form-error">댓글을 불러오지 못했습니다. <button type="button" className="text-button" onClick={() => setRetry((value) => value + 1)}>다시 불러오기</button></p> : null}
       <p className="comments-note">
         작성자는 비밀번호로 댓글을 수정·삭제할 수 있습니다.
         {canAdminDelete

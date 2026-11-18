@@ -1,130 +1,78 @@
-import { NextResponse } from "next/server";
 import {
   createPostComment,
   deletePostCommentAsAdmin,
   deletePostComment,
   getPostComments,
   getPostStats,
-  updatePostComment
+  updatePostComment,
 } from "../../../../../lib/blog-store";
 import { notifyReplyComment } from "../../../../../lib/telegram";
+import { safeEqual } from "../../../../../lib/passwords";
+import {
+  apiHandler,
+  guardPost,
+  readJson,
+  textField,
+  commentId,
+  commentResponse,
+  json,
+  ApiError,
+} from "../../../../../lib/api-security";
 
-export async function GET(_request, { params }) {
-  const { slug } = await params;
-  const comments = await getPostComments(slug);
-  const stats = await getPostStats(slug);
+export const GET = apiHandler(async (request, context) => {
+  const slug = await guardPost(request, context, "read");
+  return json({ comments: await getPostComments(slug), stats: await getPostStats(slug) });
+});
 
-  return NextResponse.json({
-    comments,
-    stats
-  });
-}
-
-export async function POST(request, { params }) {
-  const { slug } = await params;
-  const body = await request.json();
-
-  if (!body.nickname || !body.password || !body.content) {
-    return NextResponse.json(
-      { message: "nickname, password, content are required" },
-      { status: 400 }
-    );
-  }
-
-  const payload = await createPostComment(slug, body);
-
-  if (body.parentId) {
+export const POST = apiHandler(async (request, context) => {
+  const slug = await guardPost(request, context, "comment");
+  const body = await readJson(request);
+  const values = {
+    nickname: textField(body, "nickname", 1, 50),
+    password: textField(body, "password", 4, 128, false),
+    content: textField(body, "content", 1, 5000),
+    parentId: commentId(body.parentId, true),
+  };
+  const payload = await createPostComment(slug, values);
+  if (!payload.error && values.parentId) {
     try {
-      await notifyReplyComment({
-        slug,
-        nickname: body.nickname,
-        content: body.content
-      });
-    } catch (error) {
-      console.error("Failed to send reply notification", error);
+      await notifyReplyComment({ slug, ...values });
+    } catch {
+      console.error("Failed to send reply notification");
     }
   }
+  return commentResponse(payload);
+});
 
-  return NextResponse.json(payload);
-}
+export const PATCH = apiHandler(async (request, context) => {
+  const slug = await guardPost(request, context, "manage");
+  const body = await readJson(request);
+  return commentResponse(
+    await updatePostComment(slug, {
+      commentId: commentId(body.commentId),
+      password: textField(body, "password", 1, 128, false),
+      content: textField(body, "content", 1, 5000),
+    }),
+  );
+});
 
-export async function PATCH(request, { params }) {
-  const { slug } = await params;
-  const body = await request.json();
-
-  if (!body.commentId || !body.password || !body.content) {
-    return NextResponse.json(
-      { message: "commentId, password, content are required" },
-      { status: 400 }
-    );
+export const DELETE = apiHandler(async (request, context) => {
+  const slug = await guardPost(request, context, "manage");
+  const body = await readJson(request);
+  const id = commentId(body.commentId);
+  if (body.adminPassword !== undefined) {
+    const password = textField(body, "adminPassword", 1, 256, false);
+    if (
+      !process.env.COMMENT_ADMIN_PASSWORD ||
+      !safeEqual(password, process.env.COMMENT_ADMIN_PASSWORD)
+    )
+      throw new ApiError(403, "운영자 비밀번호가 맞지 않습니다.");
+    return commentResponse(await deletePostCommentAsAdmin(slug, { commentId: id }));
   }
-
-  const payload = await updatePostComment(slug, body);
-
-  if (payload.error === "not_found") {
-    return NextResponse.json(
-      { message: "comment not found" },
-      { status: 404 }
-    );
-  }
-
-  if (payload.error === "invalid_password") {
-    return NextResponse.json(
-      { message: "invalid password" },
-      { status: 403 }
-    );
-  }
-
-  return NextResponse.json(payload);
-}
-
-export async function DELETE(request, { params }) {
-  const { slug } = await params;
-  const body = await request.json();
-  const adminPassword = process.env.COMMENT_ADMIN_PASSWORD;
-
-  if (adminPassword && body.commentId && body.adminPassword) {
-    if (body.adminPassword !== adminPassword) {
-      return NextResponse.json(
-        { message: "invalid admin password" },
-        { status: 403 }
-      );
-    }
-
-    const payload = await deletePostCommentAsAdmin(slug, body);
-
-    if (payload.error === "not_found") {
-      return NextResponse.json(
-        { message: "comment not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(payload);
-  }
-
-  if (!body.commentId || !body.password) {
-    return NextResponse.json(
-      { message: "commentId and password are required" },
-      { status: 400 }
-    );
-  }
-
-  const payload = await deletePostComment(slug, body);
-
-  if (payload.error === "not_found") {
-    return NextResponse.json(
-      { message: "comment not found" },
-      { status: 404 }
-    );
-  }
-
-  if (payload.error === "invalid_password") {
-    return NextResponse.json(
-      { message: "invalid password" },
-      { status: 403 }
-    );
-  }
-
-  return NextResponse.json(payload);
-}
+  return commentResponse(
+    await deletePostComment(slug, {
+      commentId: id,
+      password: textField(body, "password", 1, 128, false),
+    }),
+  );
+});

@@ -1,11 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function PostCard({ post }) {
   return (
     <Link href={`/blog/${post.slug}`} className="post-card" aria-label={post.title}>
       <div className="post-visual">
-        <img
+        <Image
+          width={1200}
+          height={800}
+          sizes="(max-width: 760px) 100vw, 50vw"
           className="post-visual-image"
+          loading="lazy"
           src={post.image || "/images/site-representative.jpg"}
           alt={post.imageAlt || post.title}
         />
@@ -27,9 +32,9 @@ export default function PostCard({ post }) {
 
       <div className="post-card-footer">
         <div className="metric-row">
-          <span>조회 {post.views}</span>
-          <span>좋아요 {post.likeCount}</span>
-          <span>댓글 {post.commentCount}</span>
+          <span>조회 {post.statsUnavailable ? "—" : post.views}</span>
+          <span>좋아요 {post.statsUnavailable ? "—" : post.likeCount}</span>
+          <span>댓글 {post.statsUnavailable ? "—" : post.commentCount}</span>
         </div>
       </div>
     </Link>

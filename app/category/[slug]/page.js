@@ -1,7 +1,10 @@
+import { canonical } from "../../../lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostCard from "../../../components/post-card";
 import { getAllPosts, groupPostsBySeriesType } from "../../../lib/posts";
+
+export const dynamic = "force-dynamic";
 
 const categoryMap = {
   parking: {
@@ -29,6 +32,7 @@ export async function generateMetadata({ params }) {
   if (!category) return {};
 
   return {
+    alternates: canonical(`/category/${slug}`),
     title:
       slug === "parking"
         ? "주차장 공매, 낙찰, 운영 기록 | Operator's Log"
@@ -75,7 +79,7 @@ export default async function CategoryPage({ params }) {
         </section>
       ) : <section className="category-empty"><p>아직 공개된 글이 없습니다. 이 카테고리의 운영 기록을 준비하고 있습니다.</p></section>}
 
-      {groupedPosts.length > 1 ? (
+      {slug === "parking" && groupedPosts.length > 1 ? (
         <section className="series-overview">
           <div className="section-head">
             <h2>주차장 기록의 흐름</h2>
@@ -106,7 +110,7 @@ export default async function CategoryPage({ params }) {
                   <Link href={`/blog/${post.slug}`}>
                     <span className="latest-category">{post.primaryCategoryLabel} · {post.topicLabels.join(" · ")}</span>
                     <strong>{post.title}</strong>
-                    <span className="latest-meta">{post.publishedAt} · 조회 {post.views} · 좋아요 {post.likeCount} · 댓글 {post.commentCount}</span>
+                    <span className="latest-meta">{post.publishedAt} · 조회 {post.statsUnavailable ? "—" : post.views} · 좋아요 {post.statsUnavailable ? "—" : post.likeCount} · 댓글 {post.statsUnavailable ? "—" : post.commentCount}</span>
                   </Link>
                 </li>
               ))}

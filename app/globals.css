@@ -1090,6 +1090,7 @@ a {
   border: 1px solid var(--line);
 }
 
+/* biome-ignore lint/style/noDescendingSpecificity: scoped post typography does not overlap homepage intro lists. */
 .post-body li,
 .post-body blockquote,
 .comment-bubble p,
@@ -1452,4 +1453,14 @@ a {
   .reply-form-wrap {
     margin-left: 12px;
   }
+}
+
+:focus-visible {
+  outline: 2px solid #1f5e56;
+  outline-offset: 3px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }

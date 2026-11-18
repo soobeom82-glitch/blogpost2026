@@ -1,3 +1,4 @@
+import StructuredData from "../components/structured-data";
 import "./globals.css";
 import AdSenseScript from "../components/adsense-script";
 
@@ -29,7 +30,6 @@ export const metadata = {
   ],
   metadataBase: new URL(siteUrl),
   alternates: {
-    canonical: siteUrl,
     types: {
       "application/rss+xml": `${siteUrl}/feed.xml`
     }
@@ -82,12 +82,7 @@ export default function RootLayout({ children }) {
     <html lang="ko">
       <body>
         <AdSenseScript />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteSchema)
-          }}
-        />
+        <StructuredData value={websiteSchema} />
         <div className="topbar">
           <div className="topbar-inner">
             <a className="brand brand-inverse" href="/">

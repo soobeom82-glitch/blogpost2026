@@ -1,15 +1,16 @@
+import { canonical } from "../../lib/site";
 import Link from "next/link";
 import PostCard from "../../components/post-card";
-import { getAllPosts, topicMeta } from "../../lib/posts";
+import { getAllPosts, topicMeta, operationTopics } from "../../lib/posts";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
+  alternates: canonical("/operations"),
   title: "운영노트 | Operator's Log",
   description: "사업 종류와 관계없이 여러 현장에서 반복해서 마주친 세무, 계약, 자동화, 운영 실수를 정리합니다."
 };
 
-const operationTopics = ["tax", "legal", "automation", "retrospective"];
 
 export default async function OperationsPage({ searchParams }) {
   const { topic } = await searchParams;

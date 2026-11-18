@@ -1,6 +1,8 @@
+import { canonical } from "../../lib/site";
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
 
 export const metadata = {
+  alternates: canonical("/contact"),
   title: "문의 | Operator's Log",
   description: "Operator's Log 문의, 정정 요청, 제휴 문의 안내 페이지"
 };

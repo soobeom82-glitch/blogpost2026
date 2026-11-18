@@ -1,9 +1,11 @@
+import { canonical } from "../lib/site";
 import Link from "next/link";
 import PostCard from "../components/post-card";
-import { getAllPosts, topicMeta } from "../lib/posts";
+import { getAllPosts, topicMeta, operationTopics } from "../lib/posts";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
+  alternates: canonical("/"),
   title: "실전 사업 운영 인터뷰 모음 | Operator's Log",
   description: "실제 사업을 운영하며 겪은 공매, 민원, 사고, 세무, 계약, 시설 문제와 판단을 기록합니다."
 };
@@ -13,7 +15,6 @@ const businessArchives = [
   { slug: "cafe", label: "무인카페", description: "무인 운영, 고객 문제, 시설, 상품과 운영 자동화", href: "/category/cafe" }
 ];
 
-const operationTopics = ["issue", "tax", "legal", "automation", "retrospective"];
 
 export default async function HomePage() {
   const posts = await getAllPosts();

@@ -43,6 +43,7 @@ export default async function sitemap() {
       url: `${baseUrl}/feed.xml`,
       lastModified: new Date()
     },
+    { url: `${baseUrl}/personal`, lastModified: new Date() },
     ...posts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified: post.publishedAt

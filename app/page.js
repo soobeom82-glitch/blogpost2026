@@ -1,7 +1,7 @@
 import { canonical } from "../lib/site";
 import Link from "next/link";
 import PostCard from "../components/post-card";
-import { getAllPosts, topicMeta, operationTopics } from "../lib/posts";
+import { getPostsBySection, topicMeta, operationTopics } from "../lib/posts";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -17,7 +17,7 @@ const businessArchives = [
 
 
 export default async function HomePage() {
-  const posts = await getAllPosts();
+  const posts = await getPostsBySection();
   const latestPosts = posts.slice(0, 6);
   const firstGuidePost = posts.find((post) => post.slug === "parking-auction-guide-part-1");
   const topicPosts = operationTopics

@@ -60,6 +60,9 @@ export default async function BlogPostPage({ params }) {
     notFound();
   }
 
+  const personal = post.section === "personal";
+  const archiveHref = personal ? "/personal" : "/";
+  const archiveLabel = personal ? "← 여행·생활 기록으로" : "← 목록으로";
   const Content = post.Content;
   let comments = [];
   let commentsUnavailable = false;
@@ -97,12 +100,13 @@ export default async function BlogPostPage({ params }) {
   return (
     <article className="post-page">
       <StructuredData value={articleSchema} />
-      <a className="back-link" href="/">
-        ← 목록으로
+      <a className="back-link" href={archiveHref}>
+        {archiveLabel}
       </a>
 
       <header className="post-header">
         <p className="post-meta">
+          {personal ? <span className="personal-badge">개인 기록</span> : null}
           <span>{post.primaryCategoryLabel}</span>
           {post.topicLabels.map((topic) => <span key={topic}>{topic}</span>)}
           <span>{post.publishedAt}</span>
@@ -139,7 +143,7 @@ export default async function BlogPostPage({ params }) {
         <section className="related-posts">
           <div className="section-head">
             <h2>관련 기록</h2>
-            <p>같은 사업 또는 운영 주제가 겹치는 글입니다.</p>
+            <p>{personal ? "여행과 일상의 비슷한 경험을 모았습니다." : "같은 사업 또는 운영 주제가 겹치는 글입니다."}</p>
           </div>
           <ul className="latest-list">
             {relatedPosts.map((item) => (
@@ -185,8 +189,8 @@ export default async function BlogPostPage({ params }) {
       ) : null}
 
       <div className="post-bottom-actions">
-        <a className="back-link back-link-bottom" href="/">
-          ← 목록으로
+        <a className="back-link back-link-bottom" href={archiveHref}>
+          {archiveLabel}
         </a>
       </div>
 

@@ -1,7 +1,7 @@
 import { canonical } from "../../lib/site";
 import Link from "next/link";
 import PostCard from "../../components/post-card";
-import { getAllPosts, topicMeta, operationTopics } from "../../lib/posts";
+import { getPostsBySection, topicMeta, operationTopics } from "../../lib/posts";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +14,7 @@ export const metadata = {
 
 export default async function OperationsPage({ searchParams }) {
   const { topic } = await searchParams;
-  const posts = await getAllPosts();
+  const posts = await getPostsBySection();
   const selectedTopic = operationTopics.includes(topic) ? topic : null;
   const filteredPosts = selectedTopic
     ? posts.filter((post) => post.topics.includes(selectedTopic))

@@ -2,7 +2,7 @@ import { canonical } from "../../../lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PostCard from "../../../components/post-card";
-import { getAllPosts, groupPostsBySeriesType } from "../../../lib/posts";
+import { getPostsBySection, groupPostsBySeriesType } from "../../../lib/posts";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +47,7 @@ export default async function CategoryPage({ params }) {
 
   if (!category) notFound();
 
-  const allPosts = await getAllPosts();
+  const allPosts = await getPostsBySection();
   const posts = allPosts.filter((post) => post.primaryCategory === slug);
   const otherPosts = allPosts.filter((post) => post.primaryCategory !== slug);
   const firstGuidePost = posts.find((post) => post.slug === "parking-auction-guide-part-1");

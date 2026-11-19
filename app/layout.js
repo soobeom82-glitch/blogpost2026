@@ -1,3 +1,6 @@
+import SiteHeader from "../components/site-header";
+import { allPosts } from "../content/posts";
+import { filterPostsBySection } from "../lib/post-taxonomy";
 import StructuredData from "../components/structured-data";
 import "./globals.css";
 import AdSenseScript from "../components/adsense-script";
@@ -103,24 +106,13 @@ export default function RootLayout({ children }) {
                   {category.label}
                 </a>
               ))}
+              <a className="top-nav-link personal-nav-link" href="/personal">여행·생활 기록</a>
             </nav>
           </div>
         </div>
 
         <div className="site-shell">
-          <header className="site-header newsroom-header">
-            <div>
-              <p className="eyebrow">Interview-based operating archive</p>
-              <h1 className="site-title">실전 사업 운영 인터뷰 모음</h1>
-            </div>
-
-            <p className="site-intro">
-              실제 사업을 운영하면서 겪은 공매, 민원, 사고,
-              세무, 계약, 시설 문제와 그때의 판단을 기록합니다. AI가 질문하고
-              운영자가 답한 실제 경험을 바탕으로, 잘 포장된 성공담보다 현장에서
-              무엇을 판단했고 무엇을 놓쳤는지를 남깁니다.
-            </p>
-          </header>
+          <SiteHeader personalSlugs={filterPostsBySection(allPosts, "personal").map((post) => post.slug)} />
 
           <main>{children}</main>
 
@@ -129,6 +121,7 @@ export default function RootLayout({ children }) {
               <a href="/category/parking">주차장</a>
               <a href="/category/cafe">무인카페</a>
               <a href="/operations">운영노트</a>
+              <a href="/personal">여행·생활 기록</a>
               <a href="/about">소개</a>
               <a href="/contact">문의</a>
               <a href="/privacy">개인정보처리방침</a>

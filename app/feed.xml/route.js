@@ -1,4 +1,4 @@
-import { getAllPosts } from "../../lib/posts";
+import { getPostsBySection } from "../../lib/posts";
 
 function escapeXml(value) {
   return String(value)
@@ -16,7 +16,7 @@ export async function GET() {
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "https://blogpost2026.vercel.app");
 
-  const posts = await getAllPosts();
+  const posts = await getPostsBySection();
   const items = posts
     .map((post) => {
       const url = `${siteUrl}/blog/${post.slug}`;

@@ -6,6 +6,45 @@ const api = `/api/posts/${slug}`;
 const origin = "http://127.0.0.1:3107";
 const headers = { Origin: origin };
 
+test("personal travel record stays separate and renders invoice tables on mobile", async ({ page, request }) => {
+  const personalPath = "/blog/sixt-sydney-fuel-charge-refund";
+  for (const archive of ["/", "/operations?topic=issue", "/category/parking", "/category/cafe"]) {
+    await page.goto(archive);
+    await expect(page.locator(`main a[href="${personalPath}"]`)).toHaveCount(0);
+  }
+  const feed = await request.get("/feed.xml");
+  expect(feed.ok()).toBe(true);
+  expect(await feed.text()).not.toContain(personalPath);
+  const sitemap = await request.get("/sitemap.xml");
+  expect(await sitemap.text()).toContain(personalPath);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("navigation", { name: "카테고리", exact: true })
+    .getByRole("link", { name: "여행·생활 기록" }).click();
+  await expect(page.locator(".site-title")).toHaveText("여행·생활 기록");
+  await expect(page.locator(".post-card")).toHaveCount(1);
+  await expect(page.locator(".post-card img")).toHaveCount(0);
+  await page.locator(`a[href="${personalPath}"]`).click();
+  await expect(page.locator(".personal-badge")).toHaveText("개인 기록");
+  await expect(page.locator(".site-title")).toHaveText("여행·생활 기록");
+  await expect(page.locator(".post-body table")).toHaveCount(4);
+  await expect(page.locator(".post-body")).toContainText("AUD 381.01 − AUD 294.58 = AUD 86.43");
+  await expect(page.locator(".related-posts")).toHaveCount(0);
+  await expect(page.locator(".post-pagination")).toHaveCount(0);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://blogpost2026.vercel.app${personalPath}`);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  expect(await page.locator(".post-table-wrap").evaluateAll((tables) =>
+    tables.every((table) => table.scrollWidth <= table.clientWidth),
+  )).toBe(true);
+  await page.screenshot({ path: "test-results/personal-mobile.png", fullPage: true });
+  await page.locator(".back-link").first().click();
+  await expect(page).toHaveURL(/\/personal$/);
+  await page.locator(".brand").click();
+  await expect(page.locator(".site-title")).toHaveText("실전 사업 운영 인터뷰 모음");
+  await page.goto(path);
+  await expect(page.locator(`.related-posts a[href="${personalPath}"]`)).toHaveCount(0);
+});
+
 test("guide navigation, topic filter, canonical and mobile layout", async ({ page }) => {
   await page.goto(path);
   await expect(page.locator(".post-pagination")).not.toContainText("가이드.4");

@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function PostCard({ post }) {
   return (
-    <Link href={`/blog/${post.slug}`} className="post-card" aria-label={post.title}>
-      <div className="post-visual">
+    <Link href={`/blog/${post.slug}`} className={post.section === "personal" && !post.image ? "post-card post-card-text" : "post-card"} aria-label={post.title}>
+      {post.section !== "personal" || post.image ? <div className="post-visual">
         <Image
           width={1200}
           height={800}
@@ -15,7 +15,7 @@ export default function PostCard({ post }) {
           alt={post.imageAlt || post.title}
         />
         <span className="post-visual-kicker">{post.primaryCategoryLabel || post.category}</span>
-      </div>
+      </div> : null}
 
       <div className="post-card-top">
         <p className="post-meta">

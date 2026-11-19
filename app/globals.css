@@ -1464,3 +1464,66 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
+
+
+/* Personal records stay visually distinct from the business archive. */
+.personal-nav-link {
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  padding-left: 14px;
+}
+
+.personal-badge {
+  color: #1f5e56;
+  font-weight: 700;
+}
+
+.post-card-text {
+  grid-template-rows: auto 1fr auto;
+  padding-top: 24px;
+  border-top: 3px solid #1f5e56;
+}
+
+.post-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.6em 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.post-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.post-table-wrap caption {
+  padding: 12px 16px;
+  text-align: left;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.post-table-wrap th,
+.post-table-wrap td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.post-table-wrap thead {
+  background: #f2f6f5;
+}
+
+.post-table-wrap tbody th {
+  font-weight: 500;
+}
+
+.post-table-wrap .amount {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}

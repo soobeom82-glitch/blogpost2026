@@ -58,7 +58,7 @@
 
 ## 새 글
 
-현재 발행 목록은 19편입니다. `content/posts/*.mdx` 작성 후 `npm run content:generate`를 실행합니다. 필수 메타데이터, 연재 중복 순서, 이미지·글 링크를 검사하고 `index.js`를 생성합니다. 전체 예시는 README를 참고하세요.
+현재 발행 목록은 사업 글 19편과 여행·생활 기록 1편, 총 20편입니다. `content/posts/*.mdx` 작성 후 `npm run content:generate`를 실행합니다. 필수 메타데이터, 연재 중복 순서, 이미지·글 링크를 검사하고 `index.js`를 생성합니다. 전체 예시는 README를 참고하세요.
 
 ## 배포 후 확인
 

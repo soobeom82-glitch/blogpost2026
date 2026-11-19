@@ -17,7 +17,8 @@ import Post14, { metadata as metadata14 } from "./parking-auction-tax-turning-po
 import Post15, { metadata as metadata15 } from "./parking-auction-trash-fraud-part-8.mdx";
 import Post16, { metadata as metadata16 } from "./parking-auction-turning-point-part-3.mdx";
 import Post17, { metadata as metadata17 } from "./shared-kitchen-vat-refund-part-1.mdx";
-import Post18, { metadata as metadata18 } from "./tax-invoice-crosscheck-automation.mdx";
+import Post18, { metadata as metadata18 } from "./sixt-sydney-fuel-charge-refund.mdx";
+import Post19, { metadata as metadata19 } from "./tax-invoice-crosscheck-automation.mdx";
 
 export const allPosts = [
   { slug: "parking-auction-barrier-accident-part-7", ...metadata0, Content: Post0 },
@@ -38,5 +39,6 @@ export const allPosts = [
   { slug: "parking-auction-trash-fraud-part-8", ...metadata15, Content: Post15 },
   { slug: "parking-auction-turning-point-part-3", ...metadata16, Content: Post16 },
   { slug: "shared-kitchen-vat-refund-part-1", ...metadata17, Content: Post17 },
-  { slug: "tax-invoice-crosscheck-automation", ...metadata18, Content: Post18 }
+  { slug: "sixt-sydney-fuel-charge-refund", ...metadata18, Content: Post18 },
+  { slug: "tax-invoice-crosscheck-automation", ...metadata19, Content: Post19 }
 ];

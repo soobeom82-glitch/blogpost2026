@@ -23,6 +23,10 @@ for (const [index, file] of files.entries()) {
   )
     throw new Error(`${file}: invalid publishedAt`);
   if (!primaryCategoryMeta[metadata.primaryCategory]) throw new Error(`${file}: unknown category`);
+  const section = metadata.section || "business";
+  if (!["business", "personal"].includes(section)) throw new Error(`${file}: unknown section`);
+  if ((metadata.primaryCategory === "travel") !== (section === "personal"))
+    throw new Error(`${file}: travel category belongs in the personal section`);
   if (
     !Array.isArray(metadata.topics) ||
     !metadata.topics.length ||
